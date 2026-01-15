@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Cesium 地图样式 */
+.cesium-viewer {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.cesium-viewer .cesium-widget-credits {
+  display: none !important;
+}
+
 @layer base {
   html,
   body {

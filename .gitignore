@@ -45,6 +45,9 @@ output
 out/
 output
 
+# Cesium assets (generated from node_modules)
+**/public/cesium/
+
 # Cache
 **/tsconfig.tsbuildinfo
 **/.eslintcache

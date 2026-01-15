@@ -4,15 +4,20 @@
   "description": "Sun web app",
   "private": true,
   "scripts": {
+    "postinstall": "node scripts/copy-cesium.js",
+    "predev": "node scripts/copy-cesium.js",
     "dev": "next dev",
+    "prebuild": "node scripts/copy-cesium.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@chakra-ui/react": "3.31.0",
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
+    "cesium": "^1.137.0",
     "framer-motion": "12.26.2",
     "next": "16.0.7",
     "react": "^19",

@@ -1,9 +1,14 @@
 'use client'
 
 import { ChakraProvider } from '@chakra-ui/react'
+import { CacheProvider } from '@emotion/react'
+import createCache from '@emotion/cache'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import { system } from './theme'
+
+// 创建 Emotion cache，确保客户端样式一致
+const emotionCache = createCache({ key: 'chakra' })
 
 type ColorMode = 'light' | 'dark'
 
@@ -24,6 +29,11 @@ const COLOR_MODE_COOKIE = 'chakra-ui-color-mode'
 
 export function Providers({ children, initialColorMode = 'light' }: ProvidersProps) {
   const [colorMode, setColorMode] = useState<ColorMode>(initialColorMode)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const root = document.documentElement
@@ -46,10 +56,17 @@ export function Providers({ children, initialColorMode = 'light' }: ProvidersPro
     [colorMode, toggleColorMode]
   )
 
+  // 避免 hydration 不匹配：等客户端挂载后再渲染
+  if (!mounted) {
+    return null
+  }
+
   return (
-    <ChakraProvider value={system}>
-      <ColorModeContext.Provider value={value}>{children}</ColorModeContext.Provider>
-    </ChakraProvider>
+    <CacheProvider value={emotionCache}>
+      <ChakraProvider value={system}>
+        <ColorModeContext.Provider value={value}>{children}</ColorModeContext.Provider>
+      </ChakraProvider>
+    </CacheProvider>
   )
 }
 
@@ -60,4 +77,3 @@ export function useColorMode() {
   }
   return context
 }
-

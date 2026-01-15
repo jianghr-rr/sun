@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "test": {},
+    "test-unit": {},
+    "migrations:generate": {},
+    "lint": {
+      "env": ["TIMING"]
+    },
+    "lint-styles": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "**/*.{css,scss,sass,less}"]
+    },
+    "typecheck": {},
+    "build-storybook": {},
+    "clean": {
+      "cache": false
+    },
+    "dev": {
+      "cache": false
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "env": ["CUSTOM_BUILD_MODE", "FCNAP_CDN_PATH", "FCNAP_CDN_HOST", "FCNAP"],
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist", ".next/**", "!.next/cache/**"]
+    },
+    "build-sun": {
+      "dependsOn": ["sun#build"],
+      "cache": false
+    },
+    "start-sun": {
+      "dependsOn": ["sun#dev"],
+      "cache": false
+    }
+  }
+}

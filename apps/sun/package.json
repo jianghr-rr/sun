@@ -1,0 +1,33 @@
+{
+  "name": "sun",
+  "version": "0.1.0",
+  "description": "Sun web app",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "16.0.7",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.1.11",
+    "@types/node": "20.11.30",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "6.0.0",
+    "@typescript-eslint/parser": "6.0.0",
+    "eslint": "^8",
+    "eslint-config-next": "16.0.0",
+    "postcss": "8.4.38",
+    "tailwindcss": "4.1.11",
+    "typescript": "^5"
+  },
+  "author": "",
+  "license": "ISC"
+}
+

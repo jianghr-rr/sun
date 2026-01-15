@@ -50,6 +50,7 @@ output
 **/.eslintcache
 .cache/*
 .pnpm
+.pnpm-store
 
 # Misc
 .DS_Store

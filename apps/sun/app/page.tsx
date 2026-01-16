@@ -1,6 +1,5 @@
-import { HomePage } from '../components/HomePage'
+import { ReaderPage } from '../components/ReaderPage'
 
 export default function Page() {
-  return <HomePage />
+  return <ReaderPage />
 }
-

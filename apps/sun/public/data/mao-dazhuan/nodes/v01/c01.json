@@ -1,0 +1,58 @@
+{
+  "chapter": {
+    "id": "v01-c01",
+    "number": 1,
+    "title": "韶山冲与毛氏家族",
+    "nodeCount": 1,
+    "nodesRef": "mao-dazhuan/nodes/v01/c01.json"
+  },
+  "nodes": [
+    {
+      "id": "V01-C01-P0001",
+      "workId": "mao-dazhuan",
+      "volume": 1,
+      "chapter": 1,
+      "title": "韶山与韶峰",
+      "time": {
+        "start": "1893-01-01",
+        "end": "1902-12-31",
+        "precision": "year",
+        "display": "1893-1902"
+      },
+      "content": {
+        "format": "md",
+        "ref": "mao-dazhuan/content/v01/c01.md#P0001",
+        "inline": "话说在中国湖南省中部丘陵地带有一座山，名叫韶山。韶山的顶峰就是著名的韶峰，又称仙女峰，它是南岳衡山72峰之中的第71峰，也是韶山八景之一。韶峰海拔500多米，山高陡峭，气势雄伟。站在韶峰之上，给人的感觉是：「绝顶才宽三五尺，此身如在九重天。」\n\n有诗赞曰：\n绕岫岚光凝欲滴，长风轻袅云烟侧。\n山涵五月六月寒，地拥千山万山碧。\n从来仙境称韶峰，笔削三山插天空。\n天下名山三百六，此是湘南第一龙。\n\n就在这韶峰下，群山环抱着一块不大的谷地，走向是由南向北，长5公里，宽3.5公里。这个山谷就叫「韶山冲」。\n\n小小的韶山冲，隶属湖南省湘潭县管辖，在湘潭、宁乡、湘乡三县交界处。它东北距湖南省城长沙90公里，东南离湘潭县城35公里，是个偏僻的小地方。"
+      },
+      "map": {
+        "features": [
+          { "type": "place", "placeId": "shao-feng", "label": "韶峰", "role": "primary" },
+          { "type": "place", "placeId": "shaoshan-chong", "label": "韶山冲", "role": "primary" },
+          { "type": "place", "placeId": "xiangtan", "label": "湘潭", "role": "context" },
+          { "type": "place", "placeId": "changsha", "label": "长沙", "role": "context" }
+        ],
+        "route": null,
+        "camera": {
+          "mode": "preset",
+          "lng": 112.5265,
+          "lat": 27.9100,
+          "height": 400000,
+          "heading": 0,
+          "pitch": -90,
+          "durationMs": 1500
+        }
+      },
+      "transitions": {
+        "enter": { "fadeMs": 300, "flyToMs": 1500 },
+        "exit": { "fadeMs": 200 }
+      },
+      "links": {
+        "prev": "V01-C00-P0002",
+        "next": null
+      },
+      "sources": [
+        { "type": "book", "title": "毛泽东大传 第一卷", "loc": "第1章" }
+      ]
+    }
+  ]
+}

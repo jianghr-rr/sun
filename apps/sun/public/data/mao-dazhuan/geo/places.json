@@ -1,0 +1,168 @@
+{
+  "version": "0.2.0",
+  "updatedAt": "2026-01-16",
+  "places": [
+    {
+      "id": "shaoshan-chong",
+      "name": "韶山冲",
+      "aliases": ["韶山"],
+      "coord": { "lng": 112.5265, "lat": 27.9150 },
+      "level": "village",
+      "notes": "毛泽东故居所在地，湖南省湘潭县韶山冲",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "shangwuchang",
+      "name": "上屋场",
+      "aliases": [],
+      "coord": { "lng": 112.5268, "lat": 27.9148 },
+      "level": "poi",
+      "notes": "毛泽东故居，韶山冲南岸小溪上游，「凹」字形「一担柴」式房子",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "shao-feng",
+      "name": "韶峰",
+      "aliases": ["仙女峰"],
+      "coord": { "lng": 112.5180, "lat": 27.9050 },
+      "level": "poi",
+      "notes": "南岳衡山72峰之第71峰，海拔500多米，韶山八景之一",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "xiangtan",
+      "name": "湘潭",
+      "aliases": ["湘潭县"],
+      "coord": { "lng": 112.9440, "lat": 27.8290 },
+      "level": "city",
+      "notes": "湖南省湘潭市，韶山冲隶属湘潭县管辖，距韶山冲35公里",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "changsha",
+      "name": "长沙",
+      "aliases": ["省城长沙"],
+      "coord": { "lng": 112.9388, "lat": 28.2282 },
+      "level": "city",
+      "notes": "湖南省城，距韶山冲90公里",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "tangjiayuan",
+      "name": "唐家圫",
+      "aliases": ["棠佳阁", "湘乡四都唐家圫"],
+      "coord": { "lng": 112.4500, "lat": 27.8800 },
+      "level": "village",
+      "notes": "毛泽东外婆家，文七妹娘家所在地，距韶山冲10余公里",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "xiangxiang",
+      "name": "湘乡",
+      "aliases": ["湘乡县"],
+      "coord": { "lng": 112.5352, "lat": 27.7345 },
+      "level": "county",
+      "notes": "湖南省湘乡县，与湘潭、宁乡三县交界处",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "ningxiang",
+      "name": "宁乡",
+      "aliases": ["宁乡县"],
+      "coord": { "lng": 112.5515, "lat": 28.2553 },
+      "level": "county",
+      "notes": "湖南省宁乡县，与湘潭、湘乡三县交界处",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "juzizhou",
+      "name": "橘子洲",
+      "aliases": ["橘子洲头"],
+      "coord": { "lng": 112.9614, "lat": 28.1856 },
+      "level": "poi",
+      "notes": "湘江中的沙洲，《沁园春·长沙》词中「独立寒秋，湘江北去，橘子洲头」",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "jiangxi-jishui",
+      "name": "江西吉水",
+      "aliases": ["吉州府龙城县"],
+      "coord": { "lng": 115.1355, "lat": 27.2296 },
+      "level": "county",
+      "notes": "毛氏始祖毛太华故乡，江西省吉州府龙城县（今吉水县）",
+      "source": { "type": "historical", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "yunnan-lancang",
+      "name": "云南澜沧",
+      "aliases": [],
+      "coord": { "lng": 99.9320, "lat": 22.5553 },
+      "level": "county",
+      "notes": "毛太华戍滇之地，娶少数民族姑娘为妻",
+      "source": { "type": "historical", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "feiziqiao",
+      "name": "绯紫桥",
+      "aliases": ["湘乡县城北门外绯紫桥"],
+      "coord": { "lng": 112.5280, "lat": 27.7450 },
+      "level": "poi",
+      "notes": "毛太华1380年回湖南后居住地，湘乡县城北门外",
+      "source": { "type": "historical", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "dongmaotang",
+      "name": "东茅塘",
+      "aliases": ["韶山东茅塘"],
+      "coord": { "lng": 112.5300, "lat": 27.9100 },
+      "level": "village",
+      "notes": "毛氏家族祖居地，毛清一、毛清四迁居韶山后的定居地",
+      "source": { "type": "historical", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "yintiansi",
+      "name": "银田寺",
+      "aliases": [],
+      "coord": { "lng": 112.5100, "lat": 27.9300 },
+      "level": "poi",
+      "notes": "韶山冲附近集市，毛顺生挑白米赶集出售之地",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "longtanao",
+      "name": "龙潭坳",
+      "aliases": ["石观音"],
+      "coord": { "lng": 112.4520, "lat": 27.8820 },
+      "level": "poi",
+      "notes": "唐家圫后山，有清泉和「石观音」巨石，毛泽东拜石为干娘，取乳名「石三伢子」",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "nanan-sishu",
+      "name": "南岸私塾",
+      "aliases": [],
+      "coord": { "lng": 112.5260, "lat": 27.9145 },
+      "level": "poi",
+      "notes": "毛泽东启蒙私塾，离上屋场不到200米，塾师邹春培",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "fenghuangshan",
+      "name": "凤凰山",
+      "aliases": [],
+      "coord": { "lng": 112.5200, "lat": 27.9200 },
+      "level": "poi",
+      "notes": "韶山冲附近寺庙所在地，毛泽东幼时常随母亲到此求神拜佛",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    },
+    {
+      "id": "shiyanchong",
+      "name": "石砚冲",
+      "aliases": [],
+      "coord": { "lng": 112.4800, "lat": 27.8900 },
+      "level": "poi",
+      "notes": "韶山冲去唐家圫路上，毛泽东智斗赵姓富家子弟之处",
+      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+    }
+  ]
+}

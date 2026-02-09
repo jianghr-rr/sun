@@ -21,6 +21,8 @@ export interface NarrativeState {
   work: Work | null
   // 当前节点
   currentNode: Node | null
+  // 下一节点（用于跨章节路径）
+  nextNode: Node | null
   // 当前章节的所有节点
   chapterNodes: Node[]
   // 地点库
@@ -49,6 +51,7 @@ export function useNarrative(): NarrativeState & NarrativeActions {
   // 状态
   const [work, setWork] = useState<Work | null>(null)
   const [currentNode, setCurrentNode] = useState<Node | null>(null)
+  const [nextNode, setNextNode] = useState<Node | null>(null)
   const [chapterNodes, setChapterNodes] = useState<Node[]>([])
   const [places, setPlaces] = useState<Place[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -142,10 +145,18 @@ export function useNarrative(): NarrativeState & NarrativeActions {
         if (!node) {
           setError(`节点不存在: ${nodeIdFromUrl}`)
           setIsLoading(false)
+          setNextNode(null)
           return
         }
 
         setCurrentNode(node)
+
+        if (node.links?.next) {
+          const next = await getNodeById(node.links.next)
+          setNextNode(next || null)
+        } else {
+          setNextNode(null)
+        }
 
         // 加载该章节的所有节点（用于目录高亮）
         const { nodes } = await loadChapterNodes(node.volume, node.chapter)
@@ -188,6 +199,7 @@ export function useNarrative(): NarrativeState & NarrativeActions {
     if (nodeIdFromUrl) {
       // 强制重新加载
       setCurrentNode(null)
+      setNextNode(null)
       setChapterNodes([])
     }
   }, [nodeIdFromUrl])
@@ -196,6 +208,7 @@ export function useNarrative(): NarrativeState & NarrativeActions {
     // 状态
     work,
     currentNode,
+    nextNode,
     chapterNodes,
     places,
     isLoading,

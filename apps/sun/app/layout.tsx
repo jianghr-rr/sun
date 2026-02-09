@@ -23,8 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const cookieStore = await cookies()
-  const initialColorMode =
-    cookieStore.get('chakra-ui-color-mode')?.value === 'dark' ? 'dark' : 'light'
+  const initialColorMode: 'dark' = 'dark'
 
   return (
     <html className={initialColorMode} lang="zh-CN" suppressHydrationWarning>

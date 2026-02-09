@@ -3,26 +3,17 @@
  * 用于加载作品索引、节点数据、地点库
  */
 
-import type {
-  WorkIndex,
-  Work,
-  Volume,
-  ChapterMeta,
-  Node,
-  Place,
-  PlacesData,
-} from '../types/narrative'
+import type { Work, Volume, ChapterMeta, Node, Place, PlacesData } from '../types/narrative'
+import { mdxWork, mdxNodesById, mdxChapterNodeIds } from './mdx-index'
 
 // 数据基础路径
 const DATA_BASE_PATH = '/data/mao-dazhuan'
 
 // 缓存
 const cache: {
-  workIndex: WorkIndex | null
   places: Place[] | null
   chapters: Map<string, { chapter: ChapterMeta; nodes: Node[] }>
 } = {
-  workIndex: null,
   places: null,
   chapters: new Map(),
 }
@@ -30,21 +21,6 @@ const cache: {
 /**
  * 加载作品索引
  */
-export async function loadWorkIndex(): Promise<WorkIndex> {
-  if (cache.workIndex) {
-    return cache.workIndex
-  }
-
-  const response = await fetch(`${DATA_BASE_PATH}/index.json`)
-  if (!response.ok) {
-    throw new Error(`Failed to load work index: ${response.status}`)
-  }
-
-  const data: WorkIndex = await response.json()
-  cache.workIndex = data
-  return data
-}
-
 /**
  * 加载地点库
  */
@@ -86,20 +62,14 @@ export async function loadChapterNodes(
     return cache.chapters.get(cacheKey)!
   }
 
-  const volumeId = `v${volumeNumber.toString().padStart(2, '0')}`
-  const chapterId = `c${chapterNumber.toString().padStart(2, '0')}`
-  const path = `${DATA_BASE_PATH}/nodes/${volumeId}/${chapterId}.json`
-
-  const response = await fetch(path)
-  if (!response.ok) {
-    throw new Error(`Failed to load chapter nodes: ${response.status}`)
+  const chapterId = `v${volumeNumber.toString().padStart(2, '0')}-c${chapterNumber.toString().padStart(2, '0')}`
+  const nodeIds = mdxChapterNodeIds[chapterId] || []
+  const nodes = nodeIds.map((id) => mdxNodesById[id]).filter(Boolean)
+  const chapter = getChapterMeta(volumeNumber, chapterNumber)
+  if (!chapter) {
+    throw new Error(`Chapter not found: ${chapterId}`)
   }
-
-  const data = await response.json()
-  const result = {
-    chapter: data.chapter as ChapterMeta,
-    nodes: data.nodes as Node[],
-  }
+  const result = { chapter, nodes }
 
   cache.chapters.set(cacheKey, result)
   return result
@@ -110,26 +80,14 @@ export async function loadChapterNodes(
  * 节点 ID 格式：V01-C01-P0001
  */
 export async function getNodeById(nodeId: string): Promise<Node | undefined> {
-  // 解析节点 ID
-  const match = nodeId.match(/^V(\d+)-C(\d+)-P\d+$/)
-  if (!match) {
-    console.error(`Invalid node ID format: ${nodeId}`)
-    return undefined
-  }
-
-  const volumeNumber = parseInt(match[1], 10)
-  const chapterNumber = parseInt(match[2], 10)
-
-  const { nodes } = await loadChapterNodes(volumeNumber, chapterNumber)
-  return nodes.find((n) => n.id === nodeId)
+  return mdxNodesById[nodeId]
 }
 
 /**
  * 获取作品结构（用于目录）
  */
 export async function getWorkStructure(): Promise<Work> {
-  const { work } = await loadWorkIndex()
-  return work
+  return mdxWork
 }
 
 /**
@@ -153,16 +111,13 @@ export async function getChapters(volumeNumber: number): Promise<ChapterMeta[]> 
  * 获取第一个节点 ID（用于默认显示）
  */
 export async function getFirstNodeId(): Promise<string | null> {
-  const work = await getWorkStructure()
-  if (work.volumes.length === 0) return null
-
-  const firstVolume = work.volumes[0]
+  if (mdxWork.volumes.length === 0) return null
+  const firstVolume = mdxWork.volumes[0]
   if (firstVolume.chapters.length === 0) return null
-
   const firstChapter = firstVolume.chapters[0]
-  const { nodes } = await loadChapterNodes(firstVolume.number, firstChapter.number)
-
-  return nodes.length > 0 ? nodes[0].id : null
+  const chapterId = `v${firstVolume.number.toString().padStart(2, '0')}-c${firstChapter.number.toString().padStart(2, '0')}`
+  const nodeIds = mdxChapterNodeIds[chapterId] || []
+  return nodeIds[0] || null
 }
 
 /**
@@ -182,8 +137,16 @@ export function getAdjacentNodeIds(node: Node): {
  * 清除缓存（用于开发调试）
  */
 export function clearCache(): void {
-  cache.workIndex = null
   cache.places = null
   cache.chapters.clear()
+}
+
+function getChapterMeta(
+  volumeNumber: number,
+  chapterNumber: number
+): ChapterMeta | null {
+  const volume = mdxWork.volumes.find((v) => v.number === volumeNumber)
+  if (!volume) return null
+  return volume.chapters.find((c) => c.number === chapterNumber) || null
 }
 

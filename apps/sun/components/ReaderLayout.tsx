@@ -19,6 +19,7 @@ export function ReaderLayout() {
   const {
     work,
     currentNode,
+    nextNode,
     places,
     isLoading,
     error,
@@ -28,7 +29,7 @@ export function ReaderLayout() {
   } = useNarrative()
 
   // 计算地图场景
-  const mapScene = useMapScene(currentNode, places)
+  const mapScene = useMapScene(currentNode, places, nextNode)
 
   // 准备路线请求
   const routeRequest = useMemo<RouteRequest | null>(() => {
@@ -86,7 +87,7 @@ export function ReaderLayout() {
   }, [])
 
   return (
-    <div className="reader-layout relative w-full h-screen overflow-hidden">
+    <div className="reader-layout relative w-full h-screen overflow-hidden bg-paper-950">
       {/* 底层：地图 */}
       <div className="absolute inset-0 z-0">
         <DynamicMapViewer
@@ -101,7 +102,7 @@ export function ReaderLayout() {
 
       {/* 路线加载指示器 */}
       {routeLoading && mapScene?.hasRoute && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20 bg-gray-900/90 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm">
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20 bg-paper-800/95 backdrop-blur-sm text-paper-200 px-4 py-2 rounded-lg text-sm shadow-soft">
           路线加载中...
         </div>
       )}
@@ -109,7 +110,7 @@ export function ReaderLayout() {
       {/* 移动端：目录按钮 */}
       <button
         onClick={() => setIsTocOpen(true)}
-        className="fixed top-4 left-4 z-50 lg:hidden bg-gray-900/90 backdrop-blur-sm text-white p-3 rounded-lg shadow-lg"
+        className="fixed top-4 left-4 z-50 lg:hidden icon-button shadow-card"
         aria-label="打开目录"
       >
         <MenuIcon />
@@ -118,7 +119,7 @@ export function ReaderLayout() {
       {/* 移动端：目录抽屉遮罩 */}
       {isTocOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-paper-950/60 backdrop-blur-sm lg:hidden transition-smooth"
           onClick={() => setIsTocOpen(false)}
         />
       )}
@@ -126,9 +127,9 @@ export function ReaderLayout() {
       {/* 左侧：目录 */}
       <aside
         className={`
-          fixed top-0 left-0 z-50 h-full w-72
-          bg-gray-900/95 backdrop-blur-md
-          transform transition-transform duration-300
+          fixed top-0 left-0 z-50 h-full w-80
+          sidebar-card
+          transform transition-transform duration-300 ease-out
           lg:translate-x-0 lg:z-10
           ${isTocOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
@@ -136,7 +137,7 @@ export function ReaderLayout() {
         {/* 移动端：关闭按钮 */}
         <button
           onClick={() => setIsTocOpen(false)}
-          className="absolute top-4 right-4 lg:hidden text-gray-400 hover:text-white"
+          className="absolute top-7 right-5 lg:hidden text-paper-400 hover:text-paper-100 transition-colors z-10"
           aria-label="关闭目录"
         >
           <CloseIcon />
@@ -157,8 +158,8 @@ export function ReaderLayout() {
       <main
         className={`
           fixed top-0 right-0 z-10 h-full
-          w-full lg:w-[calc(100%-18rem)]
-          lg:ml-72
+          w-full lg:w-[calc(100%-20rem)]
+          lg:ml-80
           pointer-events-none
         `}
       >
@@ -168,9 +169,8 @@ export function ReaderLayout() {
             onClick={() => setIsContentCollapsed(!isContentCollapsed)}
             className={`
               absolute z-20 pointer-events-auto
-              bg-gray-900/90 backdrop-blur-md
-              text-white p-2.5 rounded-lg shadow-lg
-              hover:bg-gray-800 transition-all duration-300
+              icon-button shadow-card
+              transition-all duration-300
               ${isContentCollapsed 
                 ? 'top-4 right-4' 
                 : 'top-4 right-[calc(min(100%-2rem,42rem)+1.5rem)]'
@@ -188,11 +188,10 @@ export function ReaderLayout() {
           className={`
             absolute top-4 right-4 bottom-4
             w-[calc(100%-2rem)] max-w-2xl
-            bg-gray-900/90 backdrop-blur-md
-            rounded-2xl shadow-2xl
+            reader-card
             overflow-hidden
             pointer-events-auto
-            transition-all duration-300 ease-in-out
+            transition-all duration-300 ease-out
             ${currentNode ? 'opacity-100' : 'opacity-0 pointer-events-none'}
             ${isContentCollapsed 
               ? 'translate-x-[calc(100%+1rem)] opacity-0' 
@@ -218,16 +217,16 @@ export function ReaderLayout() {
         {/* 无内容时的提示 */}
         {!currentNode && !isLoading && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
-            <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl p-8 text-center max-w-md mx-4">
-              <h2 className="text-xl font-bold text-white mb-2">
+            <div className="reader-card p-8 text-center max-w-md mx-4 animate-fade-in">
+              <h2 className="text-xl font-semibold text-paper-100 mb-3 font-sans">
                 毛泽东大传
               </h2>
-              <p className="text-gray-400 mb-4">
+              <p className="text-paper-400 mb-5">
                 点击左侧目录或下方按钮开始阅读
               </p>
               <button
                 onClick={() => setIsTocOpen(true)}
-                className="lg:hidden bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg transition-colors"
+                className="lg:hidden btn btn-primary"
               >
                 打开目录
               </button>
@@ -242,11 +241,11 @@ export function ReaderLayout() {
 // 图标组件
 function MenuIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={2}
+        strokeWidth={1.5}
         d="M4 6h16M4 12h16M4 18h16"
       />
     </svg>
@@ -255,11 +254,11 @@ function MenuIcon() {
 
 function CloseIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={2}
+        strokeWidth={1.5}
         d="M6 18L18 6M6 6l12 12"
       />
     </svg>
@@ -273,7 +272,7 @@ function CollapseIcon() {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={2}
+        strokeWidth={1.5}
         d="M13 5l7 7-7 7M5 5l7 7-7 7"
       />
     </svg>
@@ -287,7 +286,7 @@ function ExpandIcon() {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={2}
+        strokeWidth={1.5}
         d="M11 19l-7-7 7-7M19 19l-7-7 7-7"
       />
     </svg>

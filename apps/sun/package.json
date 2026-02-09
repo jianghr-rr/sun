@@ -13,7 +13,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdx-js/react": "^3.0.1",
     "@chakra-ui/react": "3.31.0",
+    "@emotion/cache": "11.14.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "cesium": "^1.137.0",
@@ -23,6 +25,8 @@
     "react-dom": "^19"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@next/mdx": "^16.0.7",
     "@tailwindcss/postcss": "4.1.11",
     "@types/node": "20.11.30",
     "@types/react": "^19",

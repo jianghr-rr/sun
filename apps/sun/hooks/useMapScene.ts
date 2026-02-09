@@ -63,7 +63,8 @@ export interface MapScene {
  */
 export function useMapScene(
   currentNode: Node | null,
-  places: Place[]
+  places: Place[],
+  nextNode?: Node | null
 ): MapScene | null {
   return useMemo(() => {
     if (!currentNode) return null
@@ -160,6 +161,21 @@ export function useMapScene(
           toCoord: toPlace.coord,
         }
       }
+    } else if (nextNode && isCrossChapterTransition(currentNode, nextNode)) {
+      const fromId = getNodeEndPlaceId(currentNode)
+      const toId = getNodeStartPlaceId(nextNode)
+      if (fromId && toId) {
+        const fromPlace = places.find((p) => p.id === fromId)
+        const toPlace = places.find((p) => p.id === toId)
+        if (fromPlace && toPlace) {
+          route = {
+            fromId: fromPlace.id,
+            toId: toPlace.id,
+            fromCoord: fromPlace.coord,
+            toCoord: toPlace.coord,
+          }
+        }
+      }
     }
 
     return {
@@ -169,7 +185,35 @@ export function useMapScene(
       hasRoute: !!route,
       route,
     }
-  }, [currentNode, places])
+  }, [currentNode, nextNode, places])
+}
+
+function isCrossChapterTransition(currentNode: Node, nextNode: Node): boolean {
+  return (
+    currentNode.chapter !== nextNode.chapter ||
+    currentNode.volume !== nextNode.volume
+  )
+}
+
+function getNodeStartPlaceId(node: Node): string | null {
+  if (node.map.startPlaceId) return node.map.startPlaceId
+  return getPrimaryPlaceId(node)
+}
+
+function getNodeEndPlaceId(node: Node): string | null {
+  if (node.map.endPlaceId) return node.map.endPlaceId
+  return getPrimaryPlaceId(node)
+}
+
+function getPrimaryPlaceId(node: Node): string | null {
+  const primary = node.map.features.find(
+    (feature) => feature.type === 'place' && feature.role === 'primary'
+  )
+  if (primary?.placeId) return primary.placeId
+  const fallback = node.map.features.find(
+    (feature) => feature.type === 'place' && feature.placeId
+  )
+  return fallback?.placeId || null
 }
 
 /**

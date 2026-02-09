@@ -2,6 +2,11 @@
 const nextConfig = {
   // 兼容 Turbopack
   turbopack: {},
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
 }
 
-module.exports = nextConfig
+const withMDX = require('@next/mdx')({
+  extension: /\.(md|mdx)$/,
+})
+
+module.exports = withMDX(nextConfig)

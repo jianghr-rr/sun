@@ -1,4 +1,58 @@
-@import "tailwindcss";
+/* 引入 Google Fonts - 思源宋体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+/* 强制设置 spacing 变量，确保 px/py 生效 */
+:root {
+  --spacing: 0.25rem;
+}
+
+/* ===== Tailwind v4 主题配置（使用 inline 扩展而不覆盖默认值） ===== */
+@theme inline {
+  --spacing: 0.25rem;
+  /* 书房主题色板 */
+  --color-paper-50: #faf8f5;
+  --color-paper-100: #f5f1eb;
+  --color-paper-200: #e8e4df;
+  --color-paper-300: #d4cfc8;
+  --color-paper-400: #b5ada3;
+  --color-paper-500: #8c8279;
+  --color-paper-600: #6b6259;
+  --color-paper-700: #4a4540;
+  --color-paper-800: #3a3632;
+  --color-paper-900: #2d2a26;
+  --color-paper-950: #1f1c19;
+
+  /* 强调色：古铜/暗金 */
+  --color-accent-50: #fdf8e9;
+  --color-accent-100: #f9edc4;
+  --color-accent-200: #f3dc8b;
+  --color-accent-300: #e9c55a;
+  --color-accent-400: #d9a83a;
+  --color-accent-500: #c9a45c;
+  --color-accent-600: #a67c3d;
+  --color-accent-700: #835f2e;
+  --color-accent-800: #6b4d28;
+  --color-accent-900: #5a4125;
+
+  /* 红色（用于错误/特殊标记） */
+  --color-cinnabar-400: #d35f5f;
+  --color-cinnabar-500: #c44d4d;
+  --color-cinnabar-600: #a33d3d;
+
+  /* 字体 */
+  --font-family-serif: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif', STSong, SimSun, serif;
+  --font-family-sans: 'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+
+  /* 行高 */
+  --line-height-reading: 2;
+
+  /* 阴影 */
+  --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.3), 0 2px 8px -2px rgba(0, 0, 0, 0.2);
+  --shadow-soft: 0 2px 12px -2px rgba(0, 0, 0, 0.15);
+}
 
 /* Cesium 地图样式 */
 .cesium-viewer {
@@ -15,64 +69,336 @@
   display: none !important;
 }
 
+/* ===== 书房主题 - 基础样式 ===== */
 @layer base {
+  :root {
+    /* Tailwind v4 spacing 基准 */
+    --spacing: 0.25rem;
+  }
+
   html,
   body {
     height: 100%;
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 font-sans antialiased dark:bg-slate-950 dark:text-slate-100;
+    @apply bg-paper-950 text-paper-200 antialiased;
+    font-family: var(--font-family-serif);
   }
 
-  h1 {
-    @apply text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 md:text-4xl lg:text-5xl;
+  /* 标题样式 */
+  :where(h1, h2, h3, h4) {
+    @apply text-paper-100;
+    font-family: var(--font-family-sans);
   }
 
-  h2 {
-    @apply text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 md:text-3xl;
+  :where(h1) {
+    @apply text-2xl font-semibold tracking-tight md:text-3xl;
   }
 
-  h3 {
-    @apply text-xl font-semibold text-slate-900 dark:text-slate-100 md:text-2xl;
+  :where(h2) {
+    @apply text-xl font-semibold tracking-tight md:text-2xl;
   }
 
-  p {
-    @apply text-base leading-relaxed text-slate-600 dark:text-slate-300;
+  :where(h3) {
+    @apply text-lg font-semibold md:text-xl;
+  }
+
+  :where(p) {
+    @apply text-paper-200;
+    line-height: var(--line-height-reading);
+    letter-spacing: 0.02em;
+  }
+
+  /* 选中文本样式 */
+  ::selection {
+    background-color: rgba(217, 168, 58, 0.3);
+    color: #f5f1eb;
+  }
+
+  /* 滚动条样式 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4a4540;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b6259;
   }
 }
 
+/* ===== 组件样式 ===== */
 @layer components {
-  .section {
-    @apply py-12 sm:py-16 lg:py-20;
+  /* MDX 内容基础排版 */
+  .mdx-content {
+    font-family: var(--font-family-serif);
   }
 
-  .container {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  /* MDX 标题/正文样式在 utilities 层统一处理 */
+
+  /* 阅读区容器 */
+  .reader-card {
+    @apply bg-paper-800/95 backdrop-blur-md rounded-2xl;
+    box-shadow: var(--shadow-card);
+    background-image: 
+      linear-gradient(to bottom, rgba(58, 54, 50, 0.98), rgba(45, 42, 38, 0.98));
   }
 
+  /* 侧边栏容器 */
+  .sidebar-card {
+    @apply bg-paper-900/95 backdrop-blur-md;
+    background-image: 
+      linear-gradient(to bottom, rgba(45, 42, 38, 0.98), rgba(31, 28, 25, 0.98));
+  }
+
+  /* 目录内边距 */
+  .toc-padding {
+    padding: 1.5rem 1.25rem;
+  }
+
+  /* 阅读正文段落（兼容组件内渲染） */
+  .reading-paragraph {
+    @apply text-paper-200 mb-6;
+    font-size: 1.125rem;
+    line-height: 2.1;
+    letter-spacing: 0.04em;
+    text-indent: 2em;
+    text-align: justify;
+  }
+
+  /* 章节标题 */
+  .chapter-title {
+    @apply text-2xl font-semibold text-paper-100 mb-2;
+    font-family: var(--font-family-sans);
+    letter-spacing: 0.02em;
+  }
+
+  /* 时间/地点标签 */
+  .meta-tag {
+    @apply inline-flex items-center gap-1.5 text-sm text-paper-400;
+  }
+
+  /* 地名按钮 */
+  .place-tag {
+    @apply inline-block px-2 py-0.5 rounded transition-all cursor-pointer;
+    @apply hover:bg-paper-700/60 hover:text-paper-200;
+  }
+
+  .place-tag-active {
+    @apply bg-accent-500/25 text-accent-300 ring-1 ring-accent-500/40;
+  }
+
+  /* 导航按钮 */
+  .nav-button {
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all;
+    @apply bg-paper-700 text-paper-200;
+    @apply hover:bg-paper-600 hover:text-paper-100;
+  }
+
+  .nav-button:disabled {
+    @apply bg-paper-800 text-paper-500 cursor-not-allowed;
+  }
+
+  /* 目录项 */
+  .toc-item {
+    @apply w-full px-4 py-2 flex items-center gap-2 transition-colors text-left;
+    @apply text-paper-300 hover:bg-paper-800/60 hover:text-paper-200;
+  }
+
+  .toc-item-active {
+    @apply bg-accent-500/15 text-accent-400 border-l-2 border-accent-500;
+  }
+
+  /* 来源引用 */
+  .source-citation {
+    @apply text-xs text-paper-500 mt-8 pt-4 border-t border-paper-700/50;
+  }
+
+  /* 通用卡片 */
   .card {
-    @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900;
+    @apply rounded-2xl border border-paper-700 bg-paper-800 p-6;
+    box-shadow: var(--shadow-soft);
   }
 
+  /* 徽章 */
   .badge {
-    @apply inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300;
+    @apply inline-flex items-center rounded-full bg-paper-800 px-3 py-1 text-xs font-medium text-paper-400;
   }
 
+  /* 按钮基础 */
   .btn {
-    @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium transition;
+    @apply inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium transition-all;
   }
 
   .btn-primary {
-    @apply bg-slate-900 text-white hover:bg-slate-800;
+    @apply bg-accent-500 text-paper-950 hover:bg-accent-400;
   }
 
   .btn-secondary {
-    @apply border border-slate-200 bg-white text-slate-900 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800;
+    @apply border border-paper-600 bg-paper-800 text-paper-200;
+    @apply hover:border-paper-500 hover:bg-paper-700;
   }
 
-  .muted {
-    @apply text-slate-500 dark:text-slate-400;
+  /* 图标按钮 */
+  .icon-button {
+    @apply p-2.5 rounded-lg transition-all;
+    @apply bg-paper-800/90 backdrop-blur-sm text-paper-300;
+    @apply hover:bg-paper-700 hover:text-paper-100;
   }
 }
 
+/* ===== 动画 ===== */
+@layer utilities {
+  /* 强制覆盖浏览器默认 button 样式 */
+  button,
+  [type='button'],
+  [type='reset'],
+  [type='submit'] {
+    appearance: none !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    font: inherit !important;
+    color: inherit !important;
+    text-align: inherit !important;
+    line-height: inherit !important;
+  }
+
+  /* MDX 内容排版（utilities 层，确保覆盖 reset/base） */
+  .mdx-content h1 {
+    @apply text-2xl md:text-3xl font-semibold text-paper-100 mt-6 mb-4;
+    font-family: var(--font-family-sans);
+    letter-spacing: 0.02em;
+  }
+
+  .mdx-content h2 {
+    @apply text-xl md:text-2xl font-semibold text-paper-100 mt-6 mb-3;
+    font-family: var(--font-family-sans);
+  }
+
+  .mdx-content h3 {
+    @apply text-lg md:text-xl font-semibold text-paper-100 mt-5 mb-2;
+    font-family: var(--font-family-sans);
+  }
+
+  .mdx-content h4 {
+    @apply text-base md:text-lg font-semibold text-paper-100 mt-4 mb-2;
+    font-family: var(--font-family-sans);
+  }
+
+  .mdx-content h5 {
+    @apply text-base font-semibold text-paper-100 mt-4 mb-2;
+    font-family: var(--font-family-sans);
+  }
+
+  .mdx-content h6 {
+    @apply text-sm font-semibold text-paper-200 mt-4 mb-2;
+    font-family: var(--font-family-sans);
+  }
+
+  .mdx-content p {
+    @apply text-paper-200 mb-6;
+    font-size: 1.125rem;
+    line-height: 2.1;
+    letter-spacing: 0.04em;
+    text-indent: 2em;
+    text-align: justify;
+  }
+
+  .mdx-content strong {
+    @apply text-paper-100;
+  }
+
+  .mdx-content em {
+    @apply text-paper-300;
+  }
+
+  .mdx-content ul,
+  .mdx-content ol {
+    @apply text-paper-200 mb-6 pl-6;
+  }
+
+  .mdx-content li {
+    @apply mb-2;
+  }
+
+  .mdx-content li > ul,
+  .mdx-content li > ol {
+    @apply mt-2;
+  }
+
+  .mdx-content blockquote {
+    @apply border-l-4 border-paper-600 pl-4 text-paper-300 mb-6;
+  }
+
+  .mdx-content code {
+    @apply bg-paper-700/60 text-paper-100 px-1 py-0.5 rounded;
+    font-family: var(--font-family-sans);
+  }
+
+  .mdx-content pre {
+    @apply bg-paper-800/80 text-paper-100 p-4 rounded-lg mb-6 overflow-x-auto;
+  }
+
+  .mdx-content pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .mdx-content a {
+    @apply text-accent-300 underline underline-offset-4;
+  }
+
+  .mdx-content img {
+    @apply rounded-lg my-6;
+  }
+
+  .mdx-content table {
+    @apply w-full text-sm mb-6 border border-paper-700/60;
+    border-collapse: collapse;
+  }
+
+  .mdx-content th,
+  .mdx-content td {
+    @apply border border-paper-700/60 px-3 py-2;
+  }
+
+  .mdx-content th {
+    @apply text-paper-100 bg-paper-800/60 text-left;
+  }
+
+  .mdx-content tbody tr:nth-child(even) {
+    @apply bg-paper-900/40;
+  }
+
+  .mdx-content hr {
+    @apply border-paper-700/70 my-6;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 平滑过渡 */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

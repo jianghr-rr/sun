@@ -105,19 +105,19 @@ export function TableOfContents({
 
   if (!work) {
     return (
-      <div className="p-4 text-gray-400">
+      <div className="p-4 text-paper-400">
         {isLoading ? '加载中...' : '暂无数据'}
       </div>
     )
   }
 
   return (
-    <nav className="toc overflow-y-auto h-full">
+    <nav className="toc overflow-y-auto h-full font-sans px-5 py-6">
       {/* 作品标题 */}
-      <div className="px-4 py-3 border-b border-gray-700">
-        <h2 className="text-lg font-bold text-white">{work.title}</h2>
+      <div className="pb-4 mb-3 border-b border-paper-700/50">
+        <h2 className="text-lg font-semibold text-paper-100">{work.title}</h2>
         {work.author && (
-          <p className="text-sm text-gray-400 mt-1">{work.author}</p>
+          <p className="text-sm text-paper-400 mt-1.5">{work.author}</p>
         )}
       </div>
 
@@ -170,21 +170,21 @@ function VolumeItem({
       {/* 卷标题 */}
       <button
         onClick={onToggleVolume}
-        className="w-full px-4 py-2 flex items-center gap-2 hover:bg-gray-800 transition-colors text-left"
+        className="w-full px-2 py-3 flex items-center gap-2.5 hover:bg-paper-800/60 transition-colors text-left group rounded-lg"
       >
         <span
-          className={`transform transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+          className={`text-paper-500 text-xs transform transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
         >
           ▶
         </span>
-        <span className="font-medium text-gray-200">
+        <span className="font-medium text-paper-200 group-hover:text-paper-100">
           第{volume.number}卷 {volume.title}
         </span>
       </button>
 
       {/* 章列表 */}
       {isExpanded && (
-        <div className="ml-4">
+        <div className="ml-4 mt-1">
           {volume.chapters.map((chapter) => (
             <ChapterItem
               key={chapter.id}
@@ -231,20 +231,20 @@ function ChapterItem({
       {/* 章标题 */}
       <button
         onClick={onToggle}
-        className="w-full px-3 py-1.5 flex items-center gap-2 hover:bg-gray-800 transition-colors text-left text-sm"
+        className="w-full px-2 py-2.5 flex items-center gap-2 hover:bg-paper-800/60 transition-colors text-left text-sm group rounded-lg"
       >
         <span
-          className={`transform transition-transform text-xs ${isExpanded ? 'rotate-90' : ''}`}
+          className={`text-paper-500 text-xs transform transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
         >
           ▶
         </span>
-        <span className="text-gray-300">{chapterTitle}</span>
-        <span className="text-gray-500 text-xs ml-auto">{chapter.nodeCount}</span>
+        <span className="text-paper-300 group-hover:text-paper-200 flex-1">{chapterTitle}</span>
+        <span className="text-paper-600 text-xs">{chapter.nodeCount}</span>
       </button>
 
       {/* 节点列表 */}
       {isExpanded && nodes.length > 0 && (
-        <div className="ml-4 border-l border-gray-700">
+        <div className="ml-4 mt-1 border-l border-paper-700/50">
           {nodes.map((node) => (
             <NodeItem
               key={node.id}
@@ -270,17 +270,16 @@ function NodeItem({ node, isActive, onSelect }: NodeItemProps) {
   return (
     <button
       onClick={onSelect}
-      className={`w-full px-3 py-1.5 text-left text-sm transition-colors ${
+      className={`w-full px-3 py-2.5 text-left text-sm transition-all ${
         isActive
-          ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-500 -ml-px'
-          : 'text-gray-400 hover:bg-gray-800 hover:text-gray-200'
+          ? 'bg-accent-500/15 text-accent-400 border-l-2 border-accent-500 -ml-px'
+          : 'text-paper-400 hover:bg-paper-800/50 hover:text-paper-200'
       }`}
     >
       <span className="line-clamp-1">{node.title}</span>
       {node.time?.display && (
-        <span className="text-xs text-gray-500 ml-2">{node.time.display}</span>
+        <span className="text-xs text-paper-500 ml-2">{node.time.display}</span>
       )}
     </button>
   )
 }
-

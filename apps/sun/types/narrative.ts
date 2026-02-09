@@ -1,3 +1,5 @@
+import type { ComponentType, ReactElement } from 'react'
+
 /**
  * 《毛泽东大传》联动地图 - 数据类型定义
  *
@@ -37,9 +39,10 @@ export interface ChapterMeta {
   id: string
   number: number
   title: string
+  subtitle?: string
   nodeCount: number
-  /** 节点数据文件路径（相对于 data 目录） */
-  nodesRef: string
+  /** 节点数据引用（WDX 索引模式可省略） */
+  nodesRef?: string
 }
 
 /** 章完整数据（包含所有节点） */
@@ -59,10 +62,12 @@ export interface Node {
   chapter: number
   /** 节点标题 */
   title: string
+  /** 节点顺序（章节内） */
+  order?: number
   /** 时间范围（可选） */
   time?: TimeRange
   /** 正文内容引用 */
-  content: ContentRef
+  content: MdxContent
   /** 地图配置 */
   map: MapConfig
   /** 场景过渡配置 */
@@ -83,15 +88,15 @@ export interface TimeRange {
   display?: string
 }
 
-/** 正文内容引用 */
-export interface ContentRef {
-  /** 格式：md | mdx | text */
-  format: 'md' | 'mdx' | 'text'
-  /** 引用路径（如 "mao-dazhuan/content/v01/c01.md#P0001"） */
-  ref: string
-  /** 内联正文（小段落可直接内嵌，大段落用 ref） */
-  inline?: string
+/** MDX 正文内容 */
+export interface MdxContent {
+  type: 'mdx'
+  Component: MdxContentComponent
 }
+
+export type MdxContentComponent = (props: {
+  components?: Record<string, ComponentType<any>>
+}) => ReactElement
 
 /** 地图配置 */
 export interface MapConfig {
@@ -99,6 +104,10 @@ export interface MapConfig {
   features: FeatureRef[]
   /** 迁移路线（可选） */
   route?: RouteRef | null
+  /** 章节起始地点（用于动态路线） */
+  startPlaceId?: string | null
+  /** 章节结束地点（用于动态路线） */
+  endPlaceId?: string | null
   /** 镜头配置 */
   camera: CameraConfig
 }

@@ -132,18 +132,19 @@ export function useNarrative(): NarrativeState & NarrativeActions {
   // 当 URL 中的节点 ID 变化时，加载对应节点
   useEffect(() => {
     if (!nodeIdFromUrl) return
+    const nodeId: string = nodeIdFromUrl
 
     async function loadNode() {
       try {
         setIsLoading(true)
 
-        console.log('[useNarrative] 加载节点:', nodeIdFromUrl)
+        console.log('[useNarrative] 加载节点:', nodeId)
 
         // 加载节点数据
-        const node = await getNodeById(nodeIdFromUrl)
+        const node = await getNodeById(nodeId)
 
         if (!node) {
-          setError(`节点不存在: ${nodeIdFromUrl}`)
+          setError(`节点不存在: ${nodeId}`)
           setIsLoading(false)
           setNextNode(null)
           return

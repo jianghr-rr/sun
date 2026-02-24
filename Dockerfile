@@ -2,6 +2,15 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# NEXT_PUBLIC_* variables must be available at build time so Next.js can
+# embed them into the client bundle — they cannot be injected at runtime.
+ARG NEXT_PUBLIC_TDT_KEY
+ARG NEXT_PUBLIC_AMAP_KEY
+ARG NEXT_PUBLIC_BAIDU_TONGJI_ID
+ENV NEXT_PUBLIC_TDT_KEY=$NEXT_PUBLIC_TDT_KEY
+ENV NEXT_PUBLIC_AMAP_KEY=$NEXT_PUBLIC_AMAP_KEY
+ENV NEXT_PUBLIC_BAIDU_TONGJI_ID=$NEXT_PUBLIC_BAIDU_TONGJI_ID
+
 RUN corepack enable && corepack prepare pnpm@9.6.0 --activate
 
 # Copy workspace manifests and lockfile first (better layer caching)

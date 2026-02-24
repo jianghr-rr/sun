@@ -49,6 +49,10 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            NEXT_PUBLIC_TDT_KEY=${{ secrets.NEXT_PUBLIC_TDT_KEY }}
+            NEXT_PUBLIC_AMAP_KEY=${{ secrets.NEXT_PUBLIC_AMAP_KEY }}
+            NEXT_PUBLIC_BAIDU_TONGJI_ID=${{ secrets.NEXT_PUBLIC_BAIDU_TONGJI_ID }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

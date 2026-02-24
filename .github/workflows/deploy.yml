@@ -72,6 +72,23 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # Configure Docker registry mirrors for mainland China servers
+            if [ ! -f /etc/docker/daemon.json ] || ! grep -q "registry-mirrors" /etc/docker/daemon.json; then
+              mkdir -p /etc/docker
+              cat > /etc/docker/daemon.json <<'EOF'
+            {
+              "registry-mirrors": [
+                "https://docker.m.daocloud.io",
+                "https://dockerproxy.com",
+                "https://docker.nju.edu.cn"
+              ]
+            }
+            EOF
+              systemctl daemon-reload
+              systemctl restart docker
+              sleep 3
+            fi
+
             docker pull ${{ steps.img.outputs.value }}:latest
 
             docker stop sun 2>/dev/null || true

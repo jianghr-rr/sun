@@ -7,6 +7,8 @@ RUN corepack enable && corepack prepare pnpm@9.6.0 --activate
 # Copy workspace manifests and lockfile first (better layer caching)
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/sun/package.json ./apps/sun/package.json
+# postinstall runs copy-cesium.js, so the scripts dir must exist before install
+COPY apps/sun/scripts/ ./apps/sun/scripts/
 
 RUN pnpm install --frozen-lockfile
 

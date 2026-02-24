@@ -31,6 +31,9 @@ const TDT_IMG_URL = `https://t{s}.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUES
 // 天地图影像注记 URL
 const TDT_CIA_URL = `https://t{s}.tianditu.gov.cn/cia_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cia&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={TileMatrix}&TILEROW={TileRow}&TILECOL={TileCol}&tk=${TDT_KEY}`
 
+const UNIFIED_CAMERA_HEIGHT = 2000000
+const UNIFIED_CAMERA_PITCH = -90
+
 // 标记点样式
 const MARKER_STYLES = {
   primary: {
@@ -153,10 +156,10 @@ export function MapViewer({
 
     // 初始定位到长沙
     viewer.camera.setView({
-      destination: Cartesian3.fromDegrees(112.94, 28.23, 2000000), // 长沙上空2000公里，可看到华中区域
+      destination: Cartesian3.fromDegrees(112.94, 28.23, UNIFIED_CAMERA_HEIGHT),
       orientation: {
         heading: CesiumMath.toRadians(0),
-        pitch: CesiumMath.toRadians(-90), // 垂直向下
+        pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH), // 垂直向下
         roll: 0,
       },
     })
@@ -367,11 +370,11 @@ export function MapViewer({
         destination: Cartesian3.fromDegrees(
           camera.lng,
           camera.lat,
-          camera.height || 400000 // 默认400公里，可看到多个省份
+          UNIFIED_CAMERA_HEIGHT
         ),
         orientation: {
-          heading: CesiumMath.toRadians(camera.heading || 0),
-          pitch: CesiumMath.toRadians(camera.pitch || -90), // 垂直向下看，地点在视野正中心
+          heading: CesiumMath.toRadians(0),
+          pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH), // 垂直向下看，地点在视野正中心
           roll: 0,
         },
         duration: (camera.durationMs || 1200) / 1000,
@@ -384,15 +387,16 @@ export function MapViewer({
       const dLng = (east - west) * padding
       const dLat = (north - south) * padding
 
-      const rectangle = Rectangle.fromDegrees(
-        west - dLng,
-        south - dLat,
-        east + dLng,
-        north + dLat
-      )
+      const centerLng = (west + east) / 2
+      const centerLat = (south + north) / 2
 
       viewer.camera.flyTo({
-        destination: rectangle,
+        destination: Cartesian3.fromDegrees(centerLng, centerLat, UNIFIED_CAMERA_HEIGHT),
+        orientation: {
+          heading: CesiumMath.toRadians(0),
+          pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH),
+          roll: 0,
+        },
         duration: (camera.durationMs || 1200) / 1000,
       })
     }
@@ -407,7 +411,7 @@ export function MapViewer({
     if (!marker) return
 
     viewer.camera.flyTo({
-      destination: Cartesian3.fromDegrees(marker.lng, marker.lat, 1800000), // 1000公里，保持省份级别视角
+      destination: Cartesian3.fromDegrees(marker.lng, marker.lat, UNIFIED_CAMERA_HEIGHT),
       orientation: {
         heading: CesiumMath.toRadians(0),
         pitch: CesiumMath.toRadians(-90), // 垂直向下看

@@ -161,26 +161,38 @@ export function ContentReader({
       </div>
 
       {/* 底部导航 */}
-      <footer className="flex-shrink-0 px-8 lg:px-12 py-5 border-t border-paper-700/50 flex justify-between items-center">
-        <button
-          onClick={onPrev}
-          disabled={!hasPrev}
-          className="nav-button"
-        >
-          ← 上一节
-        </button>
+      <footer className="flex-shrink-0 px-8 lg:px-12 pt-5 pb-3 border-t border-paper-700/50">
+        <div className="flex justify-between items-center">
+          <button
+            onClick={onPrev}
+            disabled={!hasPrev}
+            className="nav-button"
+          >
+            ← 上一节
+          </button>
 
-        <span className="text-xs text-paper-500 font-sans">
-          {node.id}
-        </span>
+          <span className="text-xs text-paper-500 font-sans">
+            {node.id}
+          </span>
 
-        <button
-          onClick={onNext}
-          disabled={!hasNext}
-          className="nav-button"
-        >
-          下一节 →
-        </button>
+          <button
+            onClick={onNext}
+            disabled={!hasNext}
+            className="nav-button"
+          >
+            下一节 →
+          </button>
+        </div>
+        <div className="text-center mt-2">
+          <a
+            href="https://beian.miit.gov.cn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-paper-600 hover:text-paper-400 transition-colors"
+          >
+            京ICP备19003478号-1
+          </a>
+        </div>
       </footer>
     </article>
   )

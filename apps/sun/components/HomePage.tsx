@@ -58,6 +58,11 @@ export function HomePage() {
           <Text fontSize="xs" color="fg.muted" textAlign="center">
             数据来源：公开历史资料 · 地图服务：天地图
           </Text>
+          <Text fontSize="xs" color="fg.subtle" textAlign="center" mt={0.5}>
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
+              京ICP备19003478号-1
+            </a>
+          </Text>
         </Container>
       </Box>
     </Box>

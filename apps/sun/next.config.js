@@ -3,6 +3,7 @@ const nextConfig = {
   // 兼容 Turbopack
   turbopack: {},
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  output: 'standalone',
 }
 
 const withMDX = require('@next/mdx')({

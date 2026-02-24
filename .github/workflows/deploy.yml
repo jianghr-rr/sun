@@ -14,9 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Docker image names must be lowercase; derive it here once
-      - name: Set lowercase image name
-        run: echo "DOCKER_IMAGE=$(echo '${{ secrets.DOCKER_USERNAME }}/sun' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+      # Sanitize the username: lowercase + strip all whitespace/newlines
+      - name: Compute image name
+        id: img
+        run: |
+          NAME=$(printf '%s' '${{ secrets.DOCKER_USERNAME }}' | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+          echo "value=${NAME}/sun" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -31,7 +34,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.DOCKER_IMAGE }}
+          images: ${{ steps.img.outputs.value }}
           tags: |
             type=sha,prefix=sha-,format=short
             type=raw,value=latest,enable={{is_default_branch}}
@@ -52,8 +55,11 @@ jobs:
     needs: build-and-push
 
     steps:
-      - name: Set lowercase image name
-        run: echo "DOCKER_IMAGE=$(echo '${{ secrets.DOCKER_USERNAME }}/sun' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+      - name: Compute image name
+        id: img
+        run: |
+          NAME=$(printf '%s' '${{ secrets.DOCKER_USERNAME }}' | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+          echo "value=${NAME}/sun" >> $GITHUB_OUTPUT
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
@@ -62,7 +68,7 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ env.DOCKER_IMAGE }}:latest
+            docker pull ${{ steps.img.outputs.value }}:latest
 
             docker stop sun 2>/dev/null || true
             docker rm   sun 2>/dev/null || true
@@ -71,6 +77,6 @@ jobs:
               --name sun \
               --restart unless-stopped \
               -p 3000:3000 \
-              ${{ env.DOCKER_IMAGE }}:latest
+              ${{ steps.img.outputs.value }}:latest
 
             docker image prune -f

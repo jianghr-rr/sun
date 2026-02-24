@@ -45,11 +45,12 @@ jobs:
           cache-to: type=gha,mode=max
 
       # Pull on the runner (not the server), then save as a compressed tar
+      # Save to workspace dir so appleboy/scp-action (runs in Docker) can access it
       - name: Save image as tar.gz
         run: |
           docker pull ${{ steps.img.outputs.value }}:latest
-          docker save ${{ steps.img.outputs.value }}:latest | gzip > /tmp/sun.tar.gz
-          ls -lh /tmp/sun.tar.gz
+          docker save ${{ steps.img.outputs.value }}:latest | gzip > sun.tar.gz
+          ls -lh sun.tar.gz
 
       # SCP transfers directly over SSH — no Docker Hub needed on the server
       - name: Copy image to server via SCP
@@ -58,7 +59,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: /tmp/sun.tar.gz
+          source: sun.tar.gz
           target: /tmp/
 
       - name: Load image and restart container

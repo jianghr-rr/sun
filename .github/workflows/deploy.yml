@@ -14,11 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Sanitize the username: lowercase + strip all whitespace/newlines
+      # Strip email domain if user accidentally put an email, then lowercase
       - name: Compute image name
         id: img
         run: |
-          NAME=$(printf '%s' '${{ secrets.DOCKER_USERNAME }}' | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+          RAW='${{ secrets.DOCKER_USERNAME }}'
+          # If it looks like an email, keep only the local part before @
+          NAME=$(printf '%s' "${RAW%%@*}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+          echo "Computed image name: ${NAME}/sun"
           echo "value=${NAME}/sun" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
@@ -58,7 +61,8 @@ jobs:
       - name: Compute image name
         id: img
         run: |
-          NAME=$(printf '%s' '${{ secrets.DOCKER_USERNAME }}' | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+          RAW='${{ secrets.DOCKER_USERNAME }}'
+          NAME=$(printf '%s' "${RAW%%@*}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
           echo "value=${NAME}/sun" >> $GITHUB_OUTPUT
 
       - name: Deploy via SSH

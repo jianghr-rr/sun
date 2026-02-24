@@ -110,7 +110,7 @@ export function MapViewer({
     // 创建 Viewer
     const viewer = new Viewer(containerRef.current, {
       baseLayerPicker: false,
-      imageryProvider: false as any,
+      baseLayer: false,
       animation: false,
       timeline: false,
       fullscreenButton: false,

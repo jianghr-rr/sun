@@ -18,10 +18,10 @@ export function ReaderPage() {
 
 function LoadingScreen() {
   return (
-    <div className="w-full h-screen bg-gray-900 flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
-        <p className="text-gray-400">加载中...</p>
+    <div className="w-full h-screen bg-paper-950 flex items-center justify-center">
+      <div className="text-center animate-pulse">
+        <div className="h-6 w-32 bg-paper-700/50 rounded-md mx-auto mb-4" />
+        <div className="h-4 w-48 bg-paper-700/30 rounded mx-auto" />
       </div>
     </div>
   )

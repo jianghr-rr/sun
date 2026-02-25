@@ -6,7 +6,7 @@
  * 地名标签可点击，触发地图聚焦
  */
 
-import { useMemo } from 'react'
+import { useMemo, useRef, useState, useCallback } from 'react'
 import type { Node, Place } from '../types/narrative'
 import { MdxRenderer } from './MdxRenderer'
 
@@ -43,6 +43,18 @@ export function ContentReader({
   onPlaceClick,
   onPlaceHover,
 }: ContentReaderProps) {
+  // 阅读进度
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [readProgress, setReadProgress] = useState(0)
+
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const { scrollTop, scrollHeight, clientHeight } = el
+    const max = scrollHeight - clientHeight
+    setReadProgress(max > 0 ? Math.min(scrollTop / max, 1) : 0)
+  }, [])
+
   // 获取节点关联的地点信息
   const placeTags = useMemo<PlaceTag[]>(() => {
     if (!node?.map?.features) return []
@@ -59,12 +71,24 @@ export function ContentReader({
       .filter((p) => p.id)
   }, [node, places])
 
-  // 加载状态
+  // 加载状态 — 骨架屏
   if (isLoading) {
     return (
-      <div className="content-reader flex items-center justify-center h-full">
-        <div className="text-paper-400">
-          <div className="animate-pulse">加载中...</div>
+      <div className="content-reader flex-1 min-h-0 flex flex-col animate-pulse">
+        <div className="flex-shrink-0 px-6 lg:px-12 py-4 lg:py-8 border-b border-paper-700/50">
+          <div className="h-7 w-48 bg-paper-700/50 rounded-md" />
+          <div className="flex gap-4 mt-3">
+            <div className="h-4 w-24 bg-paper-700/40 rounded" />
+            <div className="h-4 w-32 bg-paper-700/40 rounded" />
+          </div>
+        </div>
+        <div className="flex-1 px-6 lg:px-12 py-5 lg:py-10 space-y-5">
+          <div className="h-4 w-full bg-paper-700/30 rounded" />
+          <div className="h-4 w-11/12 bg-paper-700/30 rounded" />
+          <div className="h-4 w-full bg-paper-700/30 rounded" />
+          <div className="h-4 w-9/12 bg-paper-700/30 rounded" />
+          <div className="h-4 w-full bg-paper-700/30 rounded" />
+          <div className="h-4 w-10/12 bg-paper-700/30 rounded" />
         </div>
       </div>
     )
@@ -73,7 +97,7 @@ export function ContentReader({
   // 错误状态
   if (error) {
     return (
-      <div className="content-reader flex items-center justify-center h-full">
+      <div className="content-reader flex-1 min-h-0 flex items-center justify-center">
         <div className="text-cinnabar-400 text-center">
           <p className="text-lg mb-2">加载失败</p>
           <p className="text-sm">{error}</p>
@@ -85,7 +109,7 @@ export function ContentReader({
   // 无内容
   if (!node) {
     return (
-      <div className="content-reader flex items-center justify-center h-full">
+      <div className="content-reader flex-1 min-h-0 flex items-center justify-center">
         <div className="text-paper-400 text-center">
           <p className="text-lg mb-2">请选择一个章节</p>
           <p className="text-sm">从左侧目录选择开始阅读</p>
@@ -95,9 +119,9 @@ export function ContentReader({
   }
 
   return (
-    <article className="content-reader h-full flex flex-col">
+    <article className="content-reader flex-1 min-h-0 flex flex-col">
       {/* 头部：标题、时间、地点 */}
-      <header className="flex-shrink-0 px-8 lg:px-12 py-6 lg:py-8 border-b border-paper-700/50">
+      <header className="flex-shrink-0 px-6 lg:px-12 py-4 lg:py-8 border-b border-paper-700/50">
         <h1 className="chapter-title">{node.title}</h1>
         <div className="flex flex-wrap gap-4 text-sm mt-3">
           {node.time?.display && (
@@ -132,8 +156,20 @@ export function ContentReader({
         </div>
       </header>
 
+      {/* 阅读进度条 */}
+      <div className="h-0.5 bg-paper-700/30 flex-shrink-0" aria-hidden="true">
+        <div
+          className="h-full bg-accent-500/50 transition-[width] duration-150 ease-out"
+          style={{ width: `${readProgress * 100}%` }}
+        />
+      </div>
+
       {/* 正文 */}
-      <div className="flex-1 overflow-y-auto px-8 lg:px-12 py-8 lg:py-10">
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="flex-1 min-h-0 overflow-y-auto px-6 lg:px-12 py-5 lg:py-10"
+      >
         <div className="max-w-prose mx-auto mdx-content">
           <MdxRenderer
             Content={node.content.Component}
@@ -161,7 +197,7 @@ export function ContentReader({
       </div>
 
       {/* 底部导航 */}
-      <footer className="flex-shrink-0 px-8 lg:px-12 pt-5 pb-3 border-t border-paper-700/50">
+      <footer className="flex-shrink-0 px-6 lg:px-12 pt-4 lg:pt-5 lg:pb-3 border-t border-paper-700/50 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
         <div className="flex justify-between items-center">
           <button
             onClick={onPrev}
@@ -183,7 +219,7 @@ export function ContentReader({
             下一节 →
           </button>
         </div>
-        <div className="text-center mt-2">
+        <div className="text-center mt-1.5 lg:mt-2">
           <a
             href="https://beian.miit.gov.cn"
             target="_blank"

@@ -9,6 +9,7 @@ interface DynamicMapViewerProps {
   scene?: MapScene | null
   routeData?: RouteResult | null
   highlightedPlaceId?: string | null
+  bottomSheetVh?: number
   onMarkerClick?: (placeId: string) => void
   onMarkerHover?: (placeId: string | null) => void
 }

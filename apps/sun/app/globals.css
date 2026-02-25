@@ -1,50 +1,49 @@
-/* 引入 Google Fonts - 思源宋体 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
-
 @import "tailwindcss/theme";
 @import "tailwindcss/utilities";
 
-/* 强制设置 spacing 变量，确保 px/py 生效 */
 :root {
   --spacing: 0.25rem;
 }
 
-/* ===== Tailwind v4 主题配置（使用 inline 扩展而不覆盖默认值） ===== */
+/* =============================================
+   主题色板 — 冷灰学术 (neutral) 为默认
+   ============================================= */
 @theme inline {
   --spacing: 0.25rem;
-  /* 书房主题色板 */
-  --color-paper-50: #faf8f5;
-  --color-paper-100: #f5f1eb;
-  --color-paper-200: #e8e4df;
-  --color-paper-300: #d4cfc8;
-  --color-paper-400: #b5ada3;
-  --color-paper-500: #8c8279;
-  --color-paper-600: #6b6259;
-  --color-paper-700: #4a4540;
-  --color-paper-800: #3a3632;
-  --color-paper-900: #2d2a26;
-  --color-paper-950: #1f1c19;
 
-  /* 强调色：古铜/暗金 */
-  --color-accent-50: #fdf8e9;
-  --color-accent-100: #f9edc4;
-  --color-accent-200: #f3dc8b;
-  --color-accent-300: #e9c55a;
-  --color-accent-400: #d9a83a;
-  --color-accent-500: #c9a45c;
-  --color-accent-600: #a67c3d;
-  --color-accent-700: #835f2e;
-  --color-accent-800: #6b4d28;
-  --color-accent-900: #5a4125;
+  /* 冷灰学术色板 */
+  --color-paper-50: #ededf4;
+  --color-paper-100: #dddde8;
+  --color-paper-200: #c8c8d6;
+  --color-paper-300: #a8a8be;
+  --color-paper-400: #8888a2;
+  --color-paper-500: #6b6b86;
+  --color-paper-600: #50506a;
+  --color-paper-700: #383856;
+  --color-paper-800: #262642;
+  --color-paper-900: #1c1c30;
+  --color-paper-950: #131322;
 
-  /* 红色（用于错误/特殊标记） */
-  --color-cinnabar-400: #d35f5f;
-  --color-cinnabar-500: #c44d4d;
-  --color-cinnabar-600: #a33d3d;
+  /* 强调色：靛蓝 */
+  --color-accent-50: #eef2ff;
+  --color-accent-100: #e0e7ff;
+  --color-accent-200: #c7d2fe;
+  --color-accent-300: #a5b4fc;
+  --color-accent-400: #818cf8;
+  --color-accent-500: #6366f1;
+  --color-accent-600: #4f46e5;
+  --color-accent-700: #4338ca;
+  --color-accent-800: #3730a3;
+  --color-accent-900: #312e81;
 
-  /* 字体 */
-  --font-family-serif: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif', STSong, SimSun, serif;
-  --font-family-sans: 'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  /* 红色（错误/特殊标记） */
+  --color-cinnabar-400: #f87171;
+  --color-cinnabar-500: #ef4444;
+  --color-cinnabar-600: #dc2626;
+
+  /* 字体（next/font 注入 --font-serif / --font-sans，此处作回退链） */
+  --font-family-serif: var(--font-serif), 'Source Han Serif SC', STSong, SimSun, serif;
+  --font-family-sans: var(--font-sans), 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
 
   /* 行高 */
   --line-height-reading: 2;
@@ -52,6 +51,90 @@
   /* 阴影 */
   --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.3), 0 2px 8px -2px rgba(0, 0, 0, 0.2);
   --shadow-soft: 0 2px 12px -2px rgba(0, 0, 0, 0.15);
+
+  /* 地图标记色 */
+  --color-marker-primary: #ef4444;
+  --color-marker-context: #3b82f6;
+  --color-marker-highlight: #facc15;
+  --color-marker-route-start: #22c55e;
+  --color-marker-route-end: #f97316;
+  --color-marker-route-line: #00ffff;
+
+  /* z-index 层级 */
+  --z-map: 0;
+  --z-content: 10;
+  --z-controls: 20;
+  --z-overlay: 40;
+  --z-drawer: 50;
+  --z-toast: 60;
+}
+
+/* 主题渐变/焦点/选中等复合色（不走 @theme，直接用 CSS 变量） */
+:root,
+[data-theme="neutral"] {
+  --gradient-card-from: rgba(38, 38, 66, 0.98);
+  --gradient-card-to: rgba(28, 28, 48, 0.98);
+  --gradient-sheet-from: rgba(28, 28, 48, 0.72);
+  --gradient-sheet-to: rgba(19, 19, 34, 0.80);
+  --gradient-sidebar-from: rgba(28, 28, 48, 0.98);
+  --gradient-sidebar-to: rgba(19, 19, 34, 0.98);
+  --focus-ring: rgba(99, 102, 241, 0.6);
+  --selection-bg: rgba(99, 102, 241, 0.25);
+  --selection-fg: #dddde8;
+  --scrollbar-thumb: #383856;
+  --scrollbar-thumb-hover: #50506a;
+  --fallback-card: rgba(38, 38, 66, 0.98);
+  --fallback-sheet: rgba(19, 19, 34, 0.95);
+  --fallback-sidebar: rgba(28, 28, 48, 0.98);
+  --fallback-icon-btn: rgba(38, 38, 66, 0.95);
+}
+
+/* =============================================
+   墨绿书卷主题
+   ============================================= */
+[data-theme="green"] {
+  --color-paper-50: #e8f5ec;
+  --color-paper-100: #d0e8d8;
+  --color-paper-200: #a8d4b6;
+  --color-paper-300: #7aba94;
+  --color-paper-400: #579e74;
+  --color-paper-500: #3e7d5a;
+  --color-paper-600: #306248;
+  --color-paper-700: #254d3a;
+  --color-paper-800: #1a3a2b;
+  --color-paper-900: #122a1f;
+  --color-paper-950: #0b1c14;
+
+  --color-accent-50: #e6fcef;
+  --color-accent-100: #b8f5d0;
+  --color-accent-200: #7aeaa8;
+  --color-accent-300: #3ddb7e;
+  --color-accent-400: #22c55e;
+  --color-accent-500: #16a34a;
+  --color-accent-600: #15803d;
+  --color-accent-700: #166534;
+  --color-accent-800: #14532d;
+  --color-accent-900: #124428;
+
+  --color-cinnabar-400: #f87171;
+  --color-cinnabar-500: #ef4444;
+  --color-cinnabar-600: #dc2626;
+
+  --gradient-card-from: rgba(26, 58, 43, 0.98);
+  --gradient-card-to: rgba(18, 42, 31, 0.98);
+  --gradient-sheet-from: rgba(18, 42, 31, 0.72);
+  --gradient-sheet-to: rgba(11, 28, 20, 0.80);
+  --gradient-sidebar-from: rgba(18, 42, 31, 0.98);
+  --gradient-sidebar-to: rgba(11, 28, 20, 0.98);
+  --focus-ring: rgba(34, 197, 94, 0.55);
+  --selection-bg: rgba(34, 197, 94, 0.25);
+  --selection-fg: #d0e8d8;
+  --scrollbar-thumb: #254d3a;
+  --scrollbar-thumb-hover: #306248;
+  --fallback-card: rgba(26, 58, 43, 0.98);
+  --fallback-sheet: rgba(11, 28, 20, 0.95);
+  --fallback-sidebar: rgba(18, 42, 31, 0.98);
+  --fallback-icon-btn: rgba(26, 58, 43, 0.95);
 }
 
 /* Cesium 地图样式 */
@@ -69,10 +152,9 @@
   display: none !important;
 }
 
-/* ===== 书房主题 - 基础样式 ===== */
+/* ===== 基础样式 ===== */
 @layer base {
   :root {
-    /* Tailwind v4 spacing 基准 */
     --spacing: 0.25rem;
   }
 
@@ -86,7 +168,17 @@
     font-family: var(--font-family-serif);
   }
 
-  /* 标题样式 */
+  :where(button, [type='button'], [type='reset'], [type='submit']) {
+    appearance: none;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    line-height: inherit;
+  }
+
   :where(h1, h2, h3, h4) {
     @apply text-paper-100;
     font-family: var(--font-family-sans);
@@ -110,13 +202,21 @@
     letter-spacing: 0.02em;
   }
 
-  /* 选中文本样式 */
-  ::selection {
-    background-color: rgba(217, 168, 58, 0.3);
-    color: #f5f1eb;
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
-  /* 滚动条样式 */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -127,45 +227,75 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #4a4540;
+    background: var(--scrollbar-thumb);
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #6b6259;
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
   }
 }
 
 /* ===== 组件样式 ===== */
 @layer components {
-  /* MDX 内容基础排版 */
   .mdx-content {
     font-family: var(--font-family-serif);
   }
 
-  /* MDX 标题/正文样式在 utilities 层统一处理 */
-
-  /* 阅读区容器 */
   .reader-card {
     @apply bg-paper-800/95 backdrop-blur-md rounded-2xl;
     box-shadow: var(--shadow-card);
-    background-image: 
-      linear-gradient(to bottom, rgba(58, 54, 50, 0.98), rgba(45, 42, 38, 0.98));
+    background-image:
+      linear-gradient(to bottom, var(--gradient-card-from), var(--gradient-card-to));
   }
 
-  /* 侧边栏容器 */
+  @media (max-width: 1023px) {
+    .reader-card.reader-card-sheet {
+      @apply bg-paper-900/70 backdrop-blur-xl;
+      height: var(--sheet-h, 55vh);
+      border-radius: 1.5rem 1.5rem 0 0;
+      background-image:
+        linear-gradient(to bottom, var(--gradient-sheet-from), var(--gradient-sheet-to));
+      box-shadow:
+        0 -4px 32px -4px rgba(0, 0, 0, 0.4),
+        0 -1px 8px -1px rgba(0, 0, 0, 0.25);
+    }
+
+    .reader-card.reader-card-sheet.is-dragging {
+      transition: none !important;
+    }
+  }
+
+  .sheet-handle {
+    @apply flex items-center justify-center cursor-pointer;
+    min-height: 44px;
+  }
+
+  .sheet-handle::before {
+    content: '';
+    @apply block w-10 h-1 rounded-full bg-paper-500/40;
+    transition: background-color 0.2s;
+  }
+
+  .sheet-handle:hover::before,
+  .sheet-handle:active::before {
+    @apply bg-paper-400/60;
+  }
+
   .sidebar-card {
     @apply bg-paper-900/95 backdrop-blur-md;
-    background-image: 
-      linear-gradient(to bottom, rgba(45, 42, 38, 0.98), rgba(31, 28, 25, 0.98));
+    background-image:
+      linear-gradient(to bottom, var(--gradient-sidebar-from), var(--gradient-sidebar-to));
   }
 
-  /* 目录内边距 */
   .toc-padding {
     padding: 1.5rem 1.25rem;
   }
 
-  /* 阅读正文段落（兼容组件内渲染） */
   .reading-paragraph {
     @apply text-paper-200 mb-6;
     font-size: 1.125rem;
@@ -175,40 +305,43 @@
     text-align: justify;
   }
 
-  /* 章节标题 */
   .chapter-title {
     @apply text-2xl font-semibold text-paper-100 mb-2;
     font-family: var(--font-family-sans);
     letter-spacing: 0.02em;
   }
 
-  /* 时间/地点标签 */
   .meta-tag {
     @apply inline-flex items-center gap-1.5 text-sm text-paper-400;
   }
 
-  /* 地名按钮 */
   .place-tag {
-    @apply inline-block px-2 py-0.5 rounded transition-all cursor-pointer;
+    @apply inline-block px-2.5 py-1 rounded transition-all cursor-pointer;
     @apply hover:bg-paper-700/60 hover:text-paper-200;
+  }
+
+  @media (max-width: 1023px) {
+    .place-tag {
+      @apply px-3 py-1.5;
+      min-height: 36px;
+    }
   }
 
   .place-tag-active {
     @apply bg-accent-500/25 text-accent-300 ring-1 ring-accent-500/40;
   }
 
-  /* 导航按钮 */
   .nav-button {
-    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all;
+    @apply px-4 py-2.5 rounded-lg text-sm font-medium transition-all;
     @apply bg-paper-700 text-paper-200;
     @apply hover:bg-paper-600 hover:text-paper-100;
+    min-height: 44px;
   }
 
   .nav-button:disabled {
     @apply bg-paper-800 text-paper-500 cursor-not-allowed;
   }
 
-  /* 目录项 */
   .toc-item {
     @apply w-full px-4 py-2 flex items-center gap-2 transition-colors text-left;
     @apply text-paper-300 hover:bg-paper-800/60 hover:text-paper-200;
@@ -218,23 +351,19 @@
     @apply bg-accent-500/15 text-accent-400 border-l-2 border-accent-500;
   }
 
-  /* 来源引用 */
   .source-citation {
     @apply text-xs text-paper-500 mt-8 pt-4 border-t border-paper-700/50;
   }
 
-  /* 通用卡片 */
   .card {
     @apply rounded-2xl border border-paper-700 bg-paper-800 p-6;
     box-shadow: var(--shadow-soft);
   }
 
-  /* 徽章 */
   .badge {
     @apply inline-flex items-center rounded-full bg-paper-800 px-3 py-1 text-xs font-medium text-paper-400;
   }
 
-  /* 按钮基础 */
   .btn {
     @apply inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium transition-all;
   }
@@ -248,32 +377,20 @@
     @apply hover:border-paper-500 hover:bg-paper-700;
   }
 
-  /* 图标按钮 */
   .icon-button {
-    @apply p-2.5 rounded-lg transition-all;
+    @apply p-3 rounded-lg transition-all;
     @apply bg-paper-800/90 backdrop-blur-sm text-paper-300;
     @apply hover:bg-paper-700 hover:text-paper-100;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
-/* ===== 动画 ===== */
+/* ===== 排版 & 动画 ===== */
 @layer utilities {
-  /* 强制覆盖浏览器默认 button 样式 */
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
-    appearance: none !important;
-    background-color: transparent !important;
-    border: 0 !important;
-    padding: 0 !important;
-    font: inherit !important;
-    color: inherit !important;
-    text-align: inherit !important;
-    line-height: inherit !important;
-  }
-
-  /* MDX 内容排版（utilities 层，确保覆盖 reset/base） */
   .mdx-content h1 {
     @apply text-2xl md:text-3xl font-semibold text-paper-100 mt-6 mb-4;
     font-family: var(--font-family-sans);
@@ -382,6 +499,7 @@
   .mdx-content hr {
     @apply border-paper-700/70 my-6;
   }
+
   .animate-fade-in {
     animation: fadeIn 0.3s ease-out;
   }
@@ -397,8 +515,41 @@
     }
   }
 
-  /* 平滑过渡 */
   .transition-smooth {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* ===== 减弱动画偏好 ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== backdrop-blur 降级 ===== */
+@supports not (backdrop-filter: blur(1px)) {
+  .reader-card {
+    background-color: var(--fallback-card);
+    background-image: none;
+  }
+
+  .reader-card.reader-card-sheet {
+    background-color: var(--fallback-sheet);
+    background-image: none;
+  }
+
+  .sidebar-card {
+    background-color: var(--fallback-sidebar);
+    background-image: none;
+  }
+
+  .icon-button {
+    background-color: var(--fallback-icon-btn);
   }
 }

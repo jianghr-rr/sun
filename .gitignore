@@ -91,3 +91,6 @@ dist
 
 .flowbite-react
 next-env.d.ts
+
+# Cursor IDE - ignore caches, keep rules & skills
+.cursor

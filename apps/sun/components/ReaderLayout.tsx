@@ -7,13 +7,26 @@
  * 底层：地图（响应节点切换 + 路线绘制 + 双向联动）
  */
 
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { TableOfContents } from './TableOfContents'
 import { ContentReader } from './ContentReader'
 import { DynamicMapViewer } from './DynamicMapViewer'
+import { ThemeToggle } from './ThemeToggle'
 import { useNarrative } from '../hooks/useNarrative'
 import { useMapScene } from '../hooks/useMapScene'
 import { useRoute, type RouteRequest } from '../hooks/useRoute'
+
+// 移动端底部面板吸附点 (vh)
+const SNAP_POINTS = [0, 55, 90] as const
+const SNAP_HALF = 55
+const SNAP_FULL = 90
+const SNAP_COLLAPSED = 0
+
+function nearestSnap(vh: number): number {
+  return SNAP_POINTS.reduce((prev, curr) =>
+    Math.abs(curr - vh) < Math.abs(prev - vh) ? curr : prev
+  )
+}
 
 export function ReaderLayout() {
   const {
@@ -51,8 +64,15 @@ export function ReaderLayout() {
   // 移动端目录抽屉状态
   const [isTocOpen, setIsTocOpen] = useState(false)
 
-  // 文案区域折叠状态
-  const [isContentCollapsed, setIsContentCollapsed] = useState(false)
+  // 桌面端折叠
+  const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(false)
+
+  // 移动端底部面板高度 (vh) + 拖拽状态
+  const [sheetVh, setSheetVh] = useState(SNAP_HALF)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragRef = useRef({ startY: 0, startVh: 0, ts: 0 })
+
+  const isMobileCollapsed = sheetVh === SNAP_COLLAPSED
 
   const hasPrev = !!currentNode?.links?.prev
   const hasNext = !!currentNode?.links?.next
@@ -86,8 +106,75 @@ export function ReaderLayout() {
     }
   }, [])
 
+  // 触摸拖拽手柄
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    dragRef.current = {
+      startY: e.touches[0].clientY,
+      startVh: sheetVh,
+      ts: Date.now(),
+    }
+    setIsDragging(true)
+  }, [sheetVh])
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isDragging) return
+    const deltaY = dragRef.current.startY - e.touches[0].clientY
+    const deltaVh = (deltaY / window.innerHeight) * 100
+    const newVh = Math.max(0, Math.min(95, dragRef.current.startVh + deltaVh))
+    setSheetVh(newVh)
+  }, [isDragging])
+
+  const handleTouchEnd = useCallback(() => {
+    if (!isDragging) return
+    const elapsed = Date.now() - dragRef.current.ts
+    const velocityVh = (sheetVh - dragRef.current.startVh) / Math.max(elapsed, 1) * 1000
+
+    setIsDragging(false)
+
+    // 快速滑动（flick）：根据速度方向决定吸附
+    if (Math.abs(velocityVh) > 60) {
+      const target = velocityVh > 0
+        ? SNAP_POINTS.find(p => p > dragRef.current.startVh) ?? SNAP_FULL
+        : [...SNAP_POINTS].reverse().find(p => p < dragRef.current.startVh) ?? SNAP_COLLAPSED
+      setSheetVh(target)
+      return
+    }
+    setSheetVh(nearestSnap(sheetVh))
+  }, [isDragging, sheetVh])
+
+  // 键盘快捷键
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
+
+      switch (e.key) {
+        case 'ArrowLeft':
+          if (hasPrev) { e.preventDefault(); goToPrev() }
+          break
+        case 'ArrowRight':
+          if (hasNext) { e.preventDefault(); goToNext() }
+          break
+        case 'Escape':
+          if (isTocOpen) { setIsTocOpen(false) }
+          else if (!isDesktopCollapsed && currentNode) { setIsDesktopCollapsed(true) }
+          break
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [hasPrev, hasNext, goToPrev, goToNext, isTocOpen, isDesktopCollapsed, currentNode])
+
   return (
     <div className="reader-layout relative w-full h-screen overflow-hidden bg-paper-950">
+      {/* Skip Link — 键盘聚焦时可见 */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-1/2 focus:-translate-x-1/2 focus:z-[100] focus:bg-accent-500 focus:text-paper-950 focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-medium focus:shadow-card"
+      >
+        跳转到正文
+      </a>
+
       {/* 底层：地图 */}
       <div className="absolute inset-0 z-0">
         <DynamicMapViewer
@@ -95,6 +182,7 @@ export function ReaderLayout() {
           scene={mapScene}
           routeData={routeData}
           highlightedPlaceId={highlightedPlaceId}
+          bottomSheetVh={sheetVh}
           onMarkerClick={handleMarkerClick}
           onMarkerHover={handleMarkerHover}
         />
@@ -107,14 +195,17 @@ export function ReaderLayout() {
         </div>
       )}
 
-      {/* 移动端：目录按钮 */}
-      <button
-        onClick={() => setIsTocOpen(true)}
-        className="fixed top-4 left-4 z-50 lg:hidden icon-button shadow-card"
-        aria-label="打开目录"
-      >
-        <MenuIcon />
-      </button>
+      {/* 左上角控制按钮 */}
+      <div className="fixed top-4 left-4 z-50 flex gap-2 max-lg:z-50 lg:left-[21.5rem]">
+        <button
+          onClick={() => setIsTocOpen(true)}
+          className="icon-button shadow-card lg:hidden"
+          aria-label="打开目录"
+        >
+          <MenuIcon />
+        </button>
+        <ThemeToggle />
+      </div>
 
       {/* 移动端：目录抽屉遮罩 */}
       {isTocOpen && (
@@ -130,6 +221,7 @@ export function ReaderLayout() {
           fixed top-0 left-0 z-50 h-full w-80
           sidebar-card
           transform transition-transform duration-300 ease-out
+          will-change-transform
           lg:translate-x-0 lg:z-10
           ${isTocOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
@@ -137,25 +229,29 @@ export function ReaderLayout() {
         {/* 移动端：关闭按钮 */}
         <button
           onClick={() => setIsTocOpen(false)}
-          className="absolute top-7 right-5 lg:hidden text-paper-400 hover:text-paper-100 transition-colors z-10"
+          className="absolute top-5 right-3 lg:hidden text-paper-400 hover:text-paper-100 transition-colors z-10 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
           aria-label="关闭目录"
         >
           <CloseIcon />
         </button>
 
-        <TableOfContents
-          work={work}
-          currentNodeId={currentNode?.id || null}
-          onSelectNode={(nodeId) => {
-            selectNode(nodeId)
-            setIsTocOpen(false) // 移动端选择后关闭抽屉
-          }}
-          isLoading={isLoading}
-        />
+        <div className="flex-1 min-h-0 overflow-hidden">
+          <TableOfContents
+            work={work}
+            currentNodeId={currentNode?.id || null}
+            onSelectNode={(nodeId) => {
+              selectNode(nodeId)
+              setIsTocOpen(false)
+            }}
+            isLoading={isLoading}
+          />
+        </div>
+
       </aside>
 
       {/* 右侧：正文阅读区 */}
       <main
+        id="main-content"
         className={`
           fixed top-0 right-0 z-10 h-full
           w-full lg:w-[calc(100%-20rem)]
@@ -163,42 +259,89 @@ export function ReaderLayout() {
           pointer-events-none
         `}
       >
-        {/* 折叠/展开按钮 */}
+        {/* 桌面端：折叠/展开按钮 */}
         {currentNode && (
           <button
-            onClick={() => setIsContentCollapsed(!isContentCollapsed)}
+            onClick={() => setIsDesktopCollapsed(!isDesktopCollapsed)}
             className={`
               absolute z-20 pointer-events-auto
               icon-button shadow-card
               transition-all duration-300
-              ${isContentCollapsed 
+              hidden lg:flex
+              ${isDesktopCollapsed 
                 ? 'top-4 right-4' 
                 : 'top-4 right-[calc(min(100%-2rem,42rem)+1.5rem)]'
               }
             `}
-            aria-label={isContentCollapsed ? '展开文案' : '收起文案'}
-            title={isContentCollapsed ? '展开文案' : '收起文案'}
+            aria-label={isDesktopCollapsed ? '展开文案' : '收起文案'}
+            title={isDesktopCollapsed ? '展开文案' : '收起文案'}
           >
-            {isContentCollapsed ? <ExpandIcon /> : <CollapseIcon />}
+            {isDesktopCollapsed ? <ExpandIcon /> : <CollapseIcon />}
           </button>
         )}
 
-        {/* 阅读卡片 */}
+        {/* 移动端：折叠时的展开按钮（浮在右下角） */}
+        {currentNode && isMobileCollapsed && (
+          <button
+            onClick={() => setSheetVh(SNAP_HALF)}
+            className="fixed bottom-6 right-4 z-20 pointer-events-auto lg:hidden icon-button shadow-card"
+            aria-label="展开文案"
+          >
+            <ChevronUpIcon />
+          </button>
+        )}
+
+        {/* 阅读卡片 — 桌面端：右侧浮层 / 移动端：底部面板 */}
         <div
           className={`
-            absolute top-4 right-4 bottom-4
-            w-[calc(100%-2rem)] max-w-2xl
-            reader-card
-            overflow-hidden
+            reader-card reader-card-sheet
             pointer-events-auto
+            overflow-hidden
+            flex flex-col
             transition-all duration-300 ease-out
+            will-change-transform
+
+            fixed left-0 right-0 bottom-0
+
+            lg:absolute lg:top-4 lg:right-4 lg:bottom-4 lg:left-auto
+            lg:w-[calc(100%-2rem)] lg:max-w-2xl
+            lg:h-auto lg:rounded-2xl
+
+            ${isDragging ? 'is-dragging' : ''}
             ${currentNode ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-            ${isContentCollapsed 
-              ? 'translate-x-[calc(100%+1rem)] opacity-0' 
-              : 'translate-x-0 opacity-100'
+            ${isDesktopCollapsed 
+              ? 'lg:translate-x-[calc(100%+1rem)] lg:opacity-0' 
+              : 'lg:translate-x-0 lg:opacity-100'
+            }
+            ${isMobileCollapsed
+              ? 'max-lg:translate-y-full max-lg:opacity-0'
+              : 'max-lg:translate-y-0 max-lg:opacity-100'
             }
           `}
+          style={{ '--sheet-h': `${sheetVh}vh` } as React.CSSProperties}
         >
+          {/* 移动端：拖拽手柄 */}
+          <div
+            className="sheet-handle lg:hidden"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onClick={() => {
+              if (sheetVh === SNAP_HALF) setSheetVh(SNAP_FULL)
+              else if (sheetVh === SNAP_FULL) setSheetVh(SNAP_HALF)
+              else setSheetVh(SNAP_HALF)
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="拖拽调整阅读区域高度"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                setSheetVh(sheetVh === SNAP_FULL ? SNAP_HALF : SNAP_FULL)
+              }
+            }}
+          />
+
           <ContentReader
             node={currentNode}
             places={places}
@@ -288,6 +431,19 @@ function ExpandIcon() {
         strokeLinejoin="round"
         strokeWidth={1.5}
         d="M11 19l-7-7 7-7M19 19l-7-7 7-7"
+      />
+    </svg>
+  )
+}
+
+function ChevronUpIcon() {
+  return (
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M4.5 15.75l7.5-7.5 7.5 7.5"
       />
     </svg>
   )

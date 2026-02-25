@@ -33,28 +33,51 @@ const TDT_CIA_URL = `https://t{s}.tianditu.gov.cn/cia_w/wmts?SERVICE=WMTS&REQUES
 
 const UNIFIED_CAMERA_HEIGHT = 2000000
 const UNIFIED_CAMERA_PITCH = -90
+const MOBILE_BREAKPOINT = 1024
+/**
+ * 移动端底部面板遮住 sheetFraction 屏幕，需要将相机目标南移，
+ * 让目标点出现在上方可见区域的中央。
+ */
+function getMobileLatOffset(cameraHeight: number, sheetFraction: number): number {
+  if (typeof window === 'undefined' || window.innerWidth >= MOBILE_BREAKPOINT) return 0
 
-// 标记点样式
+  const halfFovRad = Math.PI / 6
+  const groundFullRange = 2 * cameraHeight * Math.tan(halfFovRad)
+  const visibleLatRange = groundFullRange / 111320
+
+  return (sheetFraction / 2) * visibleLatRange
+}
+
+// 地图标记色 — 与 globals.css @theme 中的 --color-marker-* 保持同步
+const MARKER_COLORS = {
+  primary: '#ef4444',
+  context: '#3b82f6',
+  highlight: '#facc15',
+  routeStart: '#22c55e',
+  routeEnd: '#f97316',
+  routeLine: '#00ffff',
+} as const
+
 const MARKER_STYLES = {
   primary: {
     pixelSize: 14,
-    color: Color.fromCssColorString('#ef4444'), // 红色
+    color: Color.fromCssColorString(MARKER_COLORS.primary),
     outlineColor: Color.WHITE,
     outlineWidth: 3,
     labelFont: 'bold 16px sans-serif',
-    labelColor: Color.fromCssColorString('#fef08a'), // 黄色
+    labelColor: Color.fromCssColorString('#fef08a'),
   },
   context: {
     pixelSize: 10,
-    color: Color.fromCssColorString('#3b82f6'), // 蓝色
+    color: Color.fromCssColorString(MARKER_COLORS.context),
     outlineColor: Color.WHITE,
     outlineWidth: 2,
     labelFont: '14px sans-serif',
-    labelColor: Color.fromCssColorString('#e5e5e5'), // 灰白色
+    labelColor: Color.fromCssColorString('#e5e5e5'),
   },
   highlighted: {
     pixelSize: 18,
-    color: Color.fromCssColorString('#facc15'), // 亮黄色
+    color: Color.fromCssColorString(MARKER_COLORS.highlight),
     outlineColor: Color.WHITE,
     outlineWidth: 4,
     labelFont: 'bold 18px sans-serif',
@@ -62,13 +85,13 @@ const MARKER_STYLES = {
   },
   routeStart: {
     pixelSize: 16,
-    color: Color.fromCssColorString('#22c55e'), // 绿色
+    color: Color.fromCssColorString(MARKER_COLORS.routeStart),
     outlineColor: Color.WHITE,
     outlineWidth: 3,
   },
   routeEnd: {
     pixelSize: 16,
-    color: Color.fromCssColorString('#f97316'), // 橙色
+    color: Color.fromCssColorString(MARKER_COLORS.routeEnd),
     outlineColor: Color.WHITE,
     outlineWidth: 3,
   },
@@ -79,6 +102,7 @@ interface MapViewerProps {
   scene?: MapScene | null
   routeData?: RouteResult | null
   highlightedPlaceId?: string | null
+  bottomSheetVh?: number
   onMarkerClick?: (placeId: string) => void
   onMarkerHover?: (placeId: string | null) => void
 }
@@ -88,6 +112,7 @@ export function MapViewer({
   scene,
   routeData,
   highlightedPlaceId,
+  bottomSheetVh = 55,
   onMarkerClick,
   onMarkerHover,
 }: MapViewerProps) {
@@ -154,12 +179,13 @@ export function MapViewer({
       creditContainer.style.display = 'none'
     }
 
-    // 初始定位到长沙
+    // 初始定位到长沙（移动端南移避开底部面板）
+    const initOffset = getMobileLatOffset(UNIFIED_CAMERA_HEIGHT, bottomSheetVh / 100)
     viewer.camera.setView({
-      destination: Cartesian3.fromDegrees(112.94, 28.23, UNIFIED_CAMERA_HEIGHT),
+      destination: Cartesian3.fromDegrees(112.94, 28.23 - initOffset, UNIFIED_CAMERA_HEIGHT),
       orientation: {
         heading: CesiumMath.toRadians(0),
-        pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH), // 垂直向下
+        pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH),
         roll: 0,
       },
     })
@@ -301,7 +327,7 @@ export function MapViewer({
         width: 8,
         material: new PolylineGlowMaterialProperty({
           glowPower: 0.3,
-          color: Color.fromCssColorString('#00ffff'), // 青色发光
+          color: Color.fromCssColorString(MARKER_COLORS.routeLine),
         }),
         clampToGround: true,
       },
@@ -360,21 +386,23 @@ export function MapViewer({
     routeMarkersRef.current.push(endMarker)
   }, [clearRoute])
 
-  // 飞到指定位置
+  // 飞到指定位置（移动端自动南移避开底部面板）
   const flyToCamera = useCallback((camera: MapScene['camera']) => {
     const viewer = viewerRef.current
     if (!viewer) return
+
+    const latOffset = getMobileLatOffset(UNIFIED_CAMERA_HEIGHT, bottomSheetVh / 100)
 
     if (camera.mode === 'preset' && camera.lng !== undefined && camera.lat !== undefined) {
       viewer.camera.flyTo({
         destination: Cartesian3.fromDegrees(
           camera.lng,
-          camera.lat,
+          camera.lat - latOffset,
           UNIFIED_CAMERA_HEIGHT
         ),
         orientation: {
           heading: CesiumMath.toRadians(0),
-          pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH), // 垂直向下看，地点在视野正中心
+          pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH),
           roll: 0,
         },
         duration: (camera.durationMs || 1200) / 1000,
@@ -383,7 +411,6 @@ export function MapViewer({
       const padding = camera.padding || 0.25
       const { west, south, east, north } = camera.bounds
 
-      // 扩展边界
       const dLng = (east - west) * padding
       const dLat = (north - south) * padding
 
@@ -391,7 +418,7 @@ export function MapViewer({
       const centerLat = (south + north) / 2
 
       viewer.camera.flyTo({
-        destination: Cartesian3.fromDegrees(centerLng, centerLat, UNIFIED_CAMERA_HEIGHT),
+        destination: Cartesian3.fromDegrees(centerLng, centerLat - latOffset, UNIFIED_CAMERA_HEIGHT),
         orientation: {
           heading: CesiumMath.toRadians(0),
           pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH),
@@ -400,9 +427,9 @@ export function MapViewer({
         duration: (camera.durationMs || 1200) / 1000,
       })
     }
-  }, [])
+  }, [bottomSheetVh])
 
-  // 飞到指定地点
+  // 飞到指定地点（移动端自动南移避开底部面板）
   const flyToPlace = useCallback((placeId: string, markers: PlaceMarker[]) => {
     const viewer = viewerRef.current
     if (!viewer) return
@@ -410,16 +437,18 @@ export function MapViewer({
     const marker = markers.find((m) => m.id === placeId)
     if (!marker) return
 
+    const latOffset = getMobileLatOffset(UNIFIED_CAMERA_HEIGHT, bottomSheetVh / 100)
+
     viewer.camera.flyTo({
-      destination: Cartesian3.fromDegrees(marker.lng, marker.lat, UNIFIED_CAMERA_HEIGHT),
+      destination: Cartesian3.fromDegrees(marker.lng, marker.lat - latOffset, UNIFIED_CAMERA_HEIGHT),
       orientation: {
         heading: CesiumMath.toRadians(0),
-        pitch: CesiumMath.toRadians(-90), // 垂直向下看
+        pitch: CesiumMath.toRadians(UNIFIED_CAMERA_PITCH),
         roll: 0,
       },
       duration: 0.8,
     })
-  }, [])
+  }, [bottomSheetVh])
 
   // 场景变化时更新地图
   useEffect(() => {

@@ -170,7 +170,7 @@ function VolumeItem({
       {/* 卷标题 */}
       <button
         onClick={onToggleVolume}
-        className="w-full px-2 py-3 flex items-center gap-2.5 hover:bg-paper-800/60 transition-colors text-left group rounded-lg"
+        className="w-full px-2 py-3 min-h-[44px] flex items-center gap-2.5 hover:bg-paper-800/60 transition-colors text-left group rounded-lg"
       >
         <span
           className={`text-paper-500 text-xs transform transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
@@ -231,7 +231,7 @@ function ChapterItem({
       {/* 章标题 */}
       <button
         onClick={onToggle}
-        className="w-full px-2 py-2.5 flex items-center gap-2 hover:bg-paper-800/60 transition-colors text-left text-sm group rounded-lg"
+        className="w-full px-2 py-2.5 min-h-[44px] flex items-center gap-2 hover:bg-paper-800/60 transition-colors text-left text-sm group rounded-lg"
       >
         <span
           className={`text-paper-500 text-xs transform transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
@@ -270,7 +270,7 @@ function NodeItem({ node, isActive, onSelect }: NodeItemProps) {
   return (
     <button
       onClick={onSelect}
-      className={`w-full px-3 py-2.5 text-left text-sm transition-all ${
+      className={`w-full px-3 py-2.5 min-h-[44px] text-left text-sm transition-all ${
         isActive
           ? 'bg-accent-500/15 text-accent-400 border-l-2 border-accent-500 -ml-px'
           : 'text-paper-400 hover:bg-paper-800/50 hover:text-paper-200'

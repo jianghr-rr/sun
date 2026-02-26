@@ -219,6 +219,7 @@ export function ReaderLayout() {
       <aside
         className={`
           fixed top-0 left-0 z-50 h-full w-80
+          flex flex-col
           sidebar-card
           transform transition-transform duration-300 ease-out
           will-change-transform

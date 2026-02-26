@@ -1,168 +1,2049 @@
 {
   "version": "0.2.0",
-  "updatedAt": "2026-01-16",
+  "updatedAt": "2026-02-26",
   "places": [
     {
       "id": "shaoshan-chong",
       "name": "韶山冲",
-      "aliases": ["韶山"],
-      "coord": { "lng": 112.5265, "lat": 27.9150 },
+      "aliases": [
+        "韶山"
+      ],
+      "coord": {
+        "lng": 112.5265,
+        "lat": 27.915
+      },
       "level": "village",
       "notes": "毛泽东故居所在地，湖南省湘潭县韶山冲",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "shangwuchang",
       "name": "上屋场",
       "aliases": [],
-      "coord": { "lng": 112.5268, "lat": 27.9148 },
+      "coord": {
+        "lng": 112.5268,
+        "lat": 27.9148
+      },
       "level": "poi",
       "notes": "毛泽东故居，韶山冲南岸小溪上游，「凹」字形「一担柴」式房子",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "shao-feng",
       "name": "韶峰",
-      "aliases": ["仙女峰"],
-      "coord": { "lng": 112.5180, "lat": 27.9050 },
+      "aliases": [
+        "仙女峰"
+      ],
+      "coord": {
+        "lng": 112.518,
+        "lat": 27.905
+      },
       "level": "poi",
       "notes": "南岳衡山72峰之第71峰，海拔500多米，韶山八景之一",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "xiangtan",
       "name": "湘潭",
-      "aliases": ["湘潭县"],
-      "coord": { "lng": 112.9440, "lat": 27.8290 },
+      "aliases": [
+        "湘潭县"
+      ],
+      "coord": {
+        "lng": 112.944,
+        "lat": 27.829
+      },
       "level": "city",
       "notes": "湖南省湘潭市，韶山冲隶属湘潭县管辖，距韶山冲35公里",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "changsha",
       "name": "长沙",
-      "aliases": ["省城长沙"],
-      "coord": { "lng": 112.9388, "lat": 28.2282 },
+      "aliases": [
+        "省城长沙"
+      ],
+      "coord": {
+        "lng": 112.9388,
+        "lat": 28.2282
+      },
       "level": "city",
       "notes": "湖南省城，距韶山冲90公里",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "tangjiayuan",
       "name": "唐家圫",
-      "aliases": ["棠佳阁", "湘乡四都唐家圫"],
-      "coord": { "lng": 112.4500, "lat": 27.8800 },
+      "aliases": [
+        "棠佳阁",
+        "湘乡四都唐家圫"
+      ],
+      "coord": {
+        "lng": 112.45,
+        "lat": 27.88
+      },
       "level": "village",
       "notes": "毛泽东外婆家，文七妹娘家所在地，距韶山冲10余公里",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "xiangxiang",
       "name": "湘乡",
-      "aliases": ["湘乡县"],
-      "coord": { "lng": 112.5352, "lat": 27.7345 },
+      "aliases": [
+        "湘乡县"
+      ],
+      "coord": {
+        "lng": 112.5352,
+        "lat": 27.7345
+      },
       "level": "county",
       "notes": "湖南省湘乡县，与湘潭、宁乡三县交界处",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "ningxiang",
       "name": "宁乡",
-      "aliases": ["宁乡县"],
-      "coord": { "lng": 112.5515, "lat": 28.2553 },
+      "aliases": [
+        "宁乡县"
+      ],
+      "coord": {
+        "lng": 112.5515,
+        "lat": 28.2553
+      },
       "level": "county",
       "notes": "湖南省宁乡县，与湘潭、湘乡三县交界处",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "juzizhou",
       "name": "橘子洲",
-      "aliases": ["橘子洲头"],
-      "coord": { "lng": 112.9614, "lat": 28.1856 },
+      "aliases": [
+        "橘子洲头"
+      ],
+      "coord": {
+        "lng": 112.9614,
+        "lat": 28.1856
+      },
       "level": "poi",
       "notes": "湘江中的沙洲，《沁园春·长沙》词中「独立寒秋，湘江北去，橘子洲头」",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "jiangxi-jishui",
       "name": "江西吉水",
-      "aliases": ["吉州府龙城县"],
-      "coord": { "lng": 115.1355, "lat": 27.2296 },
+      "aliases": [
+        "吉州府龙城县"
+      ],
+      "coord": {
+        "lng": 115.1355,
+        "lat": 27.2296
+      },
       "level": "county",
       "notes": "毛氏始祖毛太华故乡，江西省吉州府龙城县（今吉水县）",
-      "source": { "type": "historical", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "historical",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "yunnan-lancang",
       "name": "云南澜沧",
       "aliases": [],
-      "coord": { "lng": 99.9320, "lat": 22.5553 },
+      "coord": {
+        "lng": 99.932,
+        "lat": 22.5553
+      },
       "level": "county",
       "notes": "毛太华戍滇之地，娶少数民族姑娘为妻",
-      "source": { "type": "historical", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "historical",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "feiziqiao",
       "name": "绯紫桥",
-      "aliases": ["湘乡县城北门外绯紫桥"],
-      "coord": { "lng": 112.5280, "lat": 27.7450 },
+      "aliases": [
+        "湘乡县城北门外绯紫桥"
+      ],
+      "coord": {
+        "lng": 112.528,
+        "lat": 27.745
+      },
       "level": "poi",
       "notes": "毛太华1380年回湖南后居住地，湘乡县城北门外",
-      "source": { "type": "historical", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "historical",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "dongmaotang",
       "name": "东茅塘",
-      "aliases": ["韶山东茅塘"],
-      "coord": { "lng": 112.5300, "lat": 27.9100 },
+      "aliases": [
+        "韶山东茅塘"
+      ],
+      "coord": {
+        "lng": 112.53,
+        "lat": 27.91
+      },
       "level": "village",
       "notes": "毛氏家族祖居地，毛清一、毛清四迁居韶山后的定居地",
-      "source": { "type": "historical", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "historical",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "yintiansi",
       "name": "银田寺",
       "aliases": [],
-      "coord": { "lng": 112.5100, "lat": 27.9300 },
+      "coord": {
+        "lng": 112.51,
+        "lat": 27.93
+      },
       "level": "poi",
       "notes": "韶山冲附近集市，毛顺生挑白米赶集出售之地",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "longtanao",
       "name": "龙潭坳",
-      "aliases": ["石观音"],
-      "coord": { "lng": 112.4520, "lat": 27.8820 },
+      "aliases": [
+        "石观音"
+      ],
+      "coord": {
+        "lng": 112.452,
+        "lat": 27.882
+      },
       "level": "poi",
       "notes": "唐家圫后山，有清泉和「石观音」巨石，毛泽东拜石为干娘，取乳名「石三伢子」",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "nanan-sishu",
       "name": "南岸私塾",
       "aliases": [],
-      "coord": { "lng": 112.5260, "lat": 27.9145 },
+      "coord": {
+        "lng": 112.526,
+        "lat": 27.9145
+      },
       "level": "poi",
       "notes": "毛泽东启蒙私塾，离上屋场不到200米，塾师邹春培",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "fenghuangshan",
       "name": "凤凰山",
       "aliases": [],
-      "coord": { "lng": 112.5200, "lat": 27.9200 },
+      "coord": {
+        "lng": 112.52,
+        "lat": 27.92
+      },
       "level": "poi",
       "notes": "韶山冲附近寺庙所在地，毛泽东幼时常随母亲到此求神拜佛",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
     },
     {
       "id": "shiyanchong",
       "name": "石砚冲",
       "aliases": [],
-      "coord": { "lng": 112.4800, "lat": 27.8900 },
+      "coord": {
+        "lng": 112.48,
+        "lat": 27.89
+      },
       "level": "poi",
       "notes": "韶山冲去唐家圫路上，毛泽东智斗赵姓富家子弟之处",
-      "source": { "type": "manual", "by": "editor", "date": "2026-01-16" }
+      "source": {
+        "type": "manual",
+        "by": "editor",
+        "date": "2026-01-16"
+      }
+    },
+    {
+      "id": "dingwangtai",
+      "name": "定王台",
+      "aliases": [],
+      "coord": {
+        "lng": 112.983,
+        "lat": 28.197
+      },
+      "level": "poi",
+      "notes": "长沙定王台图书馆",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "hunan-yishi",
+      "name": "湖南第一师范",
+      "aliases": [
+        "第一师范",
+        "一师",
+        "省立第一师范"
+      ],
+      "coord": {
+        "lng": 112.97,
+        "lat": 28.183
+      },
+      "level": "poi",
+      "notes": "湖南省立第一师范学校",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "beijing",
+      "name": "北京",
+      "aliases": [
+        "北平",
+        "京城",
+        "京师"
+      ],
+      "coord": {
+        "lng": 116.4074,
+        "lat": 39.9042
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "liuyang",
+      "name": "浏阳",
+      "aliases": [
+        "浏阳县"
+      ],
+      "coord": {
+        "lng": 113.6432,
+        "lat": 28.1637
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "yuelushan",
+      "name": "岳麓山",
+      "aliases": [],
+      "coord": {
+        "lng": 112.935,
+        "lat": 28.185
+      },
+      "level": "poi",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "xiangjiang-zhanyi",
+      "name": "湘江战役",
+      "aliases": [
+        "湘江"
+      ],
+      "coord": {
+        "lng": 110.95,
+        "lat": 25.8
+      },
+      "level": "poi",
+      "notes": "湘江战役主战场",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "anhua",
+      "name": "安化",
+      "aliases": [
+        "安化县"
+      ],
+      "coord": {
+        "lng": 111.2131,
+        "lat": 28.3773
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "yiyang",
+      "name": "益阳",
+      "aliases": [],
+      "coord": {
+        "lng": 112.355,
+        "lat": 28.5539
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "xinmin-xuehui",
+      "name": "新民学会",
+      "aliases": [],
+      "coord": {
+        "lng": 112.955,
+        "lat": 28.225
+      },
+      "level": "poi",
+      "notes": "新民学会旧址，刘家台子",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "shanghai",
+      "name": "上海",
+      "aliases": [],
+      "coord": {
+        "lng": 121.4737,
+        "lat": 31.2304
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "beida",
+      "name": "北京大学",
+      "aliases": [
+        "北大"
+      ],
+      "coord": {
+        "lng": 116.3103,
+        "lat": 39.9929
+      },
+      "level": "poi",
+      "notes": "北京大学（原沙滩红楼）",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "hankou",
+      "name": "汉口",
+      "aliases": [],
+      "coord": {
+        "lng": 114.27,
+        "lat": 30.583
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "tianjin",
+      "name": "天津",
+      "aliases": [],
+      "coord": {
+        "lng": 117.1907,
+        "lat": 39.1256
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "huili",
+      "name": "会理",
+      "aliases": [
+        "会理县"
+      ],
+      "coord": {
+        "lng": 102.2444,
+        "lat": 26.6558
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "wuhan",
+      "name": "武汉",
+      "aliases": [],
+      "coord": {
+        "lng": 114.3054,
+        "lat": 30.5931
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "guangzhou",
+      "name": "广州",
+      "aliases": [
+        "广东"
+      ],
+      "coord": {
+        "lng": 113.2644,
+        "lat": 23.1291
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "anyuan",
+      "name": "安源",
+      "aliases": [
+        "安源煤矿",
+        "安源路矿"
+      ],
+      "coord": {
+        "lng": 113.855,
+        "lat": 27.615
+      },
+      "level": "poi",
+      "notes": "安源路矿工人运动旧址",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "hengyang",
+      "name": "衡阳",
+      "aliases": [
+        "衡阳县"
+      ],
+      "coord": {
+        "lng": 112.572,
+        "lat": 26.893
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "qingshuitang",
+      "name": "清水塘",
+      "aliases": [],
+      "coord": {
+        "lng": 112.985,
+        "lat": 28.204
+      },
+      "level": "poi",
+      "notes": "中共湖南支部机关驻地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "yueyang",
+      "name": "岳阳",
+      "aliases": [
+        "岳阳县",
+        "岳州"
+      ],
+      "coord": {
+        "lng": 113.1282,
+        "lat": 29.3568
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "changxindian",
+      "name": "长辛店",
+      "aliases": [],
+      "coord": {
+        "lng": 116.156,
+        "lat": 39.842
+      },
+      "level": "poi",
+      "notes": "长辛店机车厂，工人运动发源地之一",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "shuikoushan",
+      "name": "水口山",
+      "aliases": [
+        "水口山矿"
+      ],
+      "coord": {
+        "lng": 112.478,
+        "lat": 26.722
+      },
+      "level": "poi",
+      "notes": "水口山铅锌矿",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "huangpu-junxiao",
+      "name": "黄埔军校",
+      "aliases": [
+        "黄埔"
+      ],
+      "coord": {
+        "lng": 113.42,
+        "lat": 23.093
+      },
+      "level": "poi",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "haifeng",
+      "name": "海丰",
+      "aliases": [
+        "海丰县"
+      ],
+      "coord": {
+        "lng": 115.3567,
+        "lat": 22.9663
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "nongmin-yundong-jiangxisuo",
+      "name": "农民运动讲习所",
+      "aliases": [
+        "农讲所"
+      ],
+      "coord": {
+        "lng": 113.269,
+        "lat": 23.129
+      },
+      "level": "poi",
+      "notes": "广州农民运动讲习所",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "hengshan",
+      "name": "衡山",
+      "aliases": [
+        "南岳衡山"
+      ],
+      "coord": {
+        "lng": 112.868,
+        "lat": 27.232
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "liling",
+      "name": "醴陵",
+      "aliases": [
+        "醴陵县"
+      ],
+      "coord": {
+        "lng": 113.4969,
+        "lat": 27.6462
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "wuchang",
+      "name": "武昌",
+      "aliases": [],
+      "coord": {
+        "lng": 114.316,
+        "lat": 30.535
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "nanjing",
+      "name": "南京",
+      "aliases": [],
+      "coord": {
+        "lng": 118.7969,
+        "lat": 32.0603
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "nanchang",
+      "name": "南昌",
+      "aliases": [],
+      "coord": {
+        "lng": 115.8579,
+        "lat": 28.682
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "rucheng",
+      "name": "汝城",
+      "aliases": [
+        "汝城县"
+      ],
+      "coord": {
+        "lng": 113.6847,
+        "lat": 25.551
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "pingjiang",
+      "name": "平江",
+      "aliases": [
+        "平江县"
+      ],
+      "coord": {
+        "lng": 113.5811,
+        "lat": 28.7023
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "tonggu",
+      "name": "铜鼓",
+      "aliases": [
+        "铜鼓县"
+      ],
+      "coord": {
+        "lng": 114.3713,
+        "lat": 28.5228
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "lianhua",
+      "name": "莲花",
+      "aliases": [
+        "莲花县"
+      ],
+      "coord": {
+        "lng": 113.9614,
+        "lat": 27.1286
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "sanwan",
+      "name": "三湾",
+      "aliases": [
+        "三湾村"
+      ],
+      "coord": {
+        "lng": 114.257,
+        "lat": 26.989
+      },
+      "level": "poi",
+      "notes": "三湾改编旧址",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "baoan",
+      "name": "保安",
+      "aliases": [
+        "志丹"
+      ],
+      "coord": {
+        "lng": 108.7688,
+        "lat": 36.8219
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "yongxin",
+      "name": "永新",
+      "aliases": [
+        "永新县"
+      ],
+      "coord": {
+        "lng": 114.2415,
+        "lat": 26.945
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "ninggang",
+      "name": "宁冈",
+      "aliases": [
+        "宁冈县"
+      ],
+      "coord": {
+        "lng": 114.15,
+        "lat": 26.68
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "maoping",
+      "name": "茅坪",
+      "aliases": [],
+      "coord": {
+        "lng": 114.137,
+        "lat": 26.653
+      },
+      "level": "poi",
+      "notes": "八角楼所在地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "jinggangshan",
+      "name": "井冈山",
+      "aliases": [
+        "井岗山"
+      ],
+      "coord": {
+        "lng": 114.1672,
+        "lat": 26.5867
+      },
+      "level": "county",
+      "notes": "井冈山革命根据地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "ciping",
+      "name": "茨坪",
+      "aliases": [],
+      "coord": {
+        "lng": 114.155,
+        "lat": 26.577
+      },
+      "level": "poi",
+      "notes": "井冈山根据地中心",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "chaling",
+      "name": "茶陵",
+      "aliases": [
+        "茶陵县"
+      ],
+      "coord": {
+        "lng": 113.5388,
+        "lat": 26.7772
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "suichuan",
+      "name": "遂川",
+      "aliases": [
+        "遂川县"
+      ],
+      "coord": {
+        "lng": 114.5204,
+        "lat": 26.3136
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "wanan",
+      "name": "万安",
+      "aliases": [
+        "万安县"
+      ],
+      "coord": {
+        "lng": 114.7836,
+        "lat": 26.4568
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "guidong",
+      "name": "桂东",
+      "aliases": [
+        "桂东县"
+      ],
+      "coord": {
+        "lng": 113.9472,
+        "lat": 26.08
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "yizhang",
+      "name": "宜章",
+      "aliases": [
+        "宜章县"
+      ],
+      "coord": {
+        "lng": 112.9517,
+        "lat": 25.3189
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "jian",
+      "name": "吉安",
+      "aliases": [
+        "吉安县"
+      ],
+      "coord": {
+        "lng": 114.9927,
+        "lat": 27.1138
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "chenzhou",
+      "name": "郴州",
+      "aliases": [
+        "郴县"
+      ],
+      "coord": {
+        "lng": 113.0147,
+        "lat": 25.7822
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "dayu",
+      "name": "大余",
+      "aliases": [
+        "大庾",
+        "大余县"
+      ],
+      "coord": {
+        "lng": 114.3617,
+        "lat": 25.4012
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "donggu",
+      "name": "东固",
+      "aliases": [
+        "东固山"
+      ],
+      "coord": {
+        "lng": 115.25,
+        "lat": 26.85
+      },
+      "level": "poi",
+      "notes": "东固革命根据地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "changting",
+      "name": "长汀",
+      "aliases": [
+        "长汀县",
+        "汀州"
+      ],
+      "coord": {
+        "lng": 116.3587,
+        "lat": 25.8274
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "dabaidi",
+      "name": "大柏地",
+      "aliases": [],
+      "coord": {
+        "lng": 116.14,
+        "lat": 26.45
+      },
+      "level": "poi",
+      "notes": "大柏地战斗旧址",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "ningdu",
+      "name": "宁都",
+      "aliases": [
+        "宁都县"
+      ],
+      "coord": {
+        "lng": 116.0099,
+        "lat": 26.472
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "ruijin",
+      "name": "瑞金",
+      "aliases": [
+        "瑞金县"
+      ],
+      "coord": {
+        "lng": 116.0272,
+        "lat": 25.8816
+      },
+      "level": "county",
+      "notes": "中华苏维埃共和国临时中央所在地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "yudu",
+      "name": "于都",
+      "aliases": [
+        "于都县",
+        "雩都"
+      ],
+      "coord": {
+        "lng": 115.4151,
+        "lat": 25.9521
+      },
+      "level": "county",
+      "notes": "中央红军长征出发地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "longyan",
+      "name": "龙岩",
+      "aliases": [
+        "龙岩县"
+      ],
+      "coord": {
+        "lng": 117.0176,
+        "lat": 25.0754
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "xingguo",
+      "name": "兴国",
+      "aliases": [
+        "兴国县"
+      ],
+      "coord": {
+        "lng": 115.3632,
+        "lat": 26.3378
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "yongding",
+      "name": "永定",
+      "aliases": [
+        "永定县"
+      ],
+      "coord": {
+        "lng": 116.732,
+        "lat": 24.723
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "shanghang",
+      "name": "上杭",
+      "aliases": [
+        "上杭县"
+      ],
+      "coord": {
+        "lng": 116.4206,
+        "lat": 25.0491
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "jianghua",
+      "name": "江华",
+      "aliases": [
+        "江华县"
+      ],
+      "coord": {
+        "lng": 111.5885,
+        "lat": 25.1852
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "gutian",
+      "name": "古田",
+      "aliases": [],
+      "coord": {
+        "lng": 116.607,
+        "lat": 25.23
+      },
+      "level": "poi",
+      "notes": "古田会议旧址",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "dongshao",
+      "name": "东韶",
+      "aliases": [],
+      "coord": {
+        "lng": 115.72,
+        "lat": 26.86
+      },
+      "level": "poi",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "huichang",
+      "name": "会昌",
+      "aliases": [
+        "会昌县"
+      ],
+      "coord": {
+        "lng": 115.7866,
+        "lat": 25.6006
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "zhangshu",
+      "name": "樟树",
+      "aliases": [],
+      "coord": {
+        "lng": 115.547,
+        "lat": 28.053
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "wenjiaши",
+      "name": "文家市",
+      "aliases": [],
+      "coord": {
+        "lng": 113.68,
+        "lat": 28.18
+      },
+      "level": "poi",
+      "notes": "秋收起义文家市会师",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "futian",
+      "name": "富田",
+      "aliases": [],
+      "coord": {
+        "lng": 115.14,
+        "lat": 26.88
+      },
+      "level": "poi",
+      "notes": "富田事变发生地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "huangpi",
+      "name": "黄陂",
+      "aliases": [],
+      "coord": {
+        "lng": 116.08,
+        "lat": 26.42
+      },
+      "level": "poi",
+      "notes": "第一次反围剿战场",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "jianning",
+      "name": "建宁",
+      "aliases": [
+        "建宁县"
+      ],
+      "coord": {
+        "lng": 116.846,
+        "lat": 26.8325
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "guangchang",
+      "name": "广昌",
+      "aliases": [
+        "广昌县"
+      ],
+      "coord": {
+        "lng": 116.3326,
+        "lat": 26.8433
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "lichuan",
+      "name": "黎川",
+      "aliases": [
+        "黎川县"
+      ],
+      "coord": {
+        "lng": 116.9074,
+        "lat": 27.2829
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "zhangzhou",
+      "name": "漳州",
+      "aliases": [],
+      "coord": {
+        "lng": 117.647,
+        "lat": 24.5128
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "xiamen",
+      "name": "厦门",
+      "aliases": [],
+      "coord": {
+        "lng": 118.0894,
+        "lat": 24.4798
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "tongdao",
+      "name": "通道",
+      "aliases": [
+        "通道县"
+      ],
+      "coord": {
+        "lng": 109.7838,
+        "lat": 26.159
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "quanzhou-gx",
+      "name": "全州",
+      "aliases": [
+        "全州县"
+      ],
+      "coord": {
+        "lng": 111.072,
+        "lat": 25.928
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "daoxian",
+      "name": "道县",
+      "aliases": [],
+      "coord": {
+        "lng": 111.5928,
+        "lat": 25.5268
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "xingangx",
+      "name": "兴安",
+      "aliases": [
+        "兴安县"
+      ],
+      "coord": {
+        "lng": 110.6712,
+        "lat": 25.6117
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "liping",
+      "name": "黎平",
+      "aliases": [
+        "黎平县"
+      ],
+      "coord": {
+        "lng": 109.1361,
+        "lat": 26.231
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "wujiang",
+      "name": "乌江",
+      "aliases": [],
+      "coord": {
+        "lng": 106.75,
+        "lat": 27.3
+      },
+      "level": "poi",
+      "notes": "乌江天险",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "zunyi",
+      "name": "遵义",
+      "aliases": [
+        "遵义县"
+      ],
+      "coord": {
+        "lng": 106.9271,
+        "lat": 27.7256
+      },
+      "level": "city",
+      "notes": "遵义会议旧址",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "guiyang",
+      "name": "贵阳",
+      "aliases": [],
+      "coord": {
+        "lng": 106.7135,
+        "lat": 26.6473
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "tucheng",
+      "name": "土城",
+      "aliases": [],
+      "coord": {
+        "lng": 105.97,
+        "lat": 28.3
+      },
+      "level": "poi",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "chishui",
+      "name": "赤水",
+      "aliases": [
+        "赤水河"
+      ],
+      "coord": {
+        "lng": 105.6976,
+        "lat": 28.5903
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "luzhou",
+      "name": "泸州",
+      "aliases": [],
+      "coord": {
+        "lng": 105.4432,
+        "lat": 28.8717
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "loushan-guan",
+      "name": "娄山关",
+      "aliases": [],
+      "coord": {
+        "lng": 106.85,
+        "lat": 28.09
+      },
+      "level": "poi",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "jinshajiang",
+      "name": "金沙江",
+      "aliases": [],
+      "coord": {
+        "lng": 103.6,
+        "lat": 26.87
+      },
+      "level": "poi",
+      "notes": "巧渡金沙江渡口",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "kunming",
+      "name": "昆明",
+      "aliases": [],
+      "coord": {
+        "lng": 102.8329,
+        "lat": 25.0389
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "jiaopingdu",
+      "name": "皎平渡",
+      "aliases": [],
+      "coord": {
+        "lng": 103.21,
+        "lat": 26.33
+      },
+      "level": "poi",
+      "notes": "巧渡金沙江渡口",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "ludingqiao",
+      "name": "泸定桥",
+      "aliases": [
+        "泸定"
+      ],
+      "coord": {
+        "lng": 102.234,
+        "lat": 29.916
+      },
+      "level": "poi",
+      "notes": "飞夺泸定桥",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "dadu-he",
+      "name": "大渡河",
+      "aliases": [],
+      "coord": {
+        "lng": 102.45,
+        "lat": 29.55
+      },
+      "level": "poi",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "anshunchang",
+      "name": "安顺场",
+      "aliases": [],
+      "coord": {
+        "lng": 102.408,
+        "lat": 29.263
+      },
+      "level": "poi",
+      "notes": "强渡大渡河",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "maogong",
+      "name": "懋功",
+      "aliases": [
+        "小金",
+        "小金县"
+      ],
+      "coord": {
+        "lng": 102.3612,
+        "lat": 31.0036
+      },
+      "level": "county",
+      "notes": "红一、四方面军会师地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "jiajinshan",
+      "name": "夹金山",
+      "aliases": [],
+      "coord": {
+        "lng": 102.75,
+        "lat": 30.85
+      },
+      "level": "poi",
+      "notes": "红军翻越的第一座大雪山",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "chengdu",
+      "name": "成都",
+      "aliases": [],
+      "coord": {
+        "lng": 104.0657,
+        "lat": 30.5723
+      },
+      "level": "city",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "caodi",
+      "name": "草地",
+      "aliases": [
+        "松潘草地",
+        "若尔盖草地"
+      ],
+      "coord": {
+        "lng": 102.9628,
+        "lat": 33.5749
+      },
+      "level": "poi",
+      "notes": "红军过草地",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "lazikou",
+      "name": "腊子口",
+      "aliases": [],
+      "coord": {
+        "lng": 104.01,
+        "lat": 34.06
+      },
+      "level": "poi",
+      "notes": "天险腊子口战斗",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "hadapu",
+      "name": "哈达铺",
+      "aliases": [],
+      "coord": {
+        "lng": 104.09,
+        "lat": 34.08
+      },
+      "level": "poi",
+      "notes": "红军在此获知陕北根据地信息",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "liupanshan",
+      "name": "六盘山",
+      "aliases": [],
+      "coord": {
+        "lng": 106.103,
+        "lat": 35.764
+      },
+      "level": "poi",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "wuqi",
+      "name": "吴起",
+      "aliases": [
+        "吴起镇",
+        "吴旗"
+      ],
+      "coord": {
+        "lng": 108.1756,
+        "lat": 36.9272
+      },
+      "level": "county",
+      "notes": "中央红军长征终点",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "dingbian",
+      "name": "定边",
+      "aliases": [
+        "定边县"
+      ],
+      "coord": {
+        "lng": 107.6013,
+        "lat": 37.5953
+      },
+      "level": "county",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
+    },
+    {
+      "id": "wayaobao",
+      "name": "瓦窑堡",
+      "aliases": [],
+      "coord": {
+        "lng": 109.969,
+        "lat": 37.004
+      },
+      "level": "poi",
+      "notes": "",
+      "source": {
+        "type": "manual",
+        "by": "auto-extract",
+        "date": "2026-02-26"
+      }
     }
   ]
 }

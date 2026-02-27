@@ -221,13 +221,13 @@ export function useNarrative(): NarrativeState & NarrativeActions {
       }
     }
 
-    const timeoutId = window.setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       void prefetchAdjacent()
     }, 300)
 
     return () => {
       cancelled = true
-      window.clearTimeout(timeoutId)
+      clearTimeout(timeoutId)
     }
   }, [currentNode?.id, currentNode?.links?.next, currentNode?.links?.prev])
 

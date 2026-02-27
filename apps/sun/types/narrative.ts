@@ -185,8 +185,8 @@ export interface TransitionConfig {
 
 /** 前后节点链接 */
 export interface NodeLinks {
-  prev?: string
-  next?: string
+  prev?: string | null
+  next?: string | null
 }
 
 /** 引用来源 */

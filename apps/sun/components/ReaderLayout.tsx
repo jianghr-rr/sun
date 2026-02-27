@@ -8,6 +8,7 @@
  */
 
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { TableOfContents } from './TableOfContents'
 import { ContentReader } from './ContentReader'
 import { DynamicMapViewer } from './DynamicMapViewer'
@@ -15,6 +16,7 @@ import { ThemeToggle } from './ThemeToggle'
 import { useNarrative } from '../hooks/useNarrative'
 import { useMapScene } from '../hooks/useMapScene'
 import { useRoute, type RouteRequest } from '../hooks/useRoute'
+import { useReadingProgress, type ReadingProgress } from '../hooks/useReadingProgress'
 
 // 移动端底部面板吸附点 (vh)
 const SNAP_POINTS = [0, 55, 90] as const
@@ -29,6 +31,9 @@ function nearestSnap(vh: number): number {
 }
 
 export function ReaderLayout() {
+  const searchParams = useSearchParams()
+  const hadNodeParamOnEntryRef = useRef<boolean>(searchParams.get('node') != null)
+
   const {
     work,
     currentNode,
@@ -40,6 +45,69 @@ export function ReaderLayout() {
     goToPrev,
     goToNext,
   } = useNarrative()
+
+  const { load: loadReadingProgress, save: saveReadingProgress } = useReadingProgress(work?.id)
+  const savedProgressRef = useRef<ReadingProgress | null>(null)
+  const restoringRef = useRef(false)
+  const restoringNodeIdRef = useRef<string | null>(null)
+  const [initialScrollRatio, setInitialScrollRatio] = useState<number | undefined>(undefined)
+
+  // 读取一次本地进度（workId ready 后）
+  useEffect(() => {
+    if (!work?.id) return
+    savedProgressRef.current = loadReadingProgress()
+  }, [work?.id, loadReadingProgress])
+
+  // 节点变化时：决定是否进入“恢复阶段”，并避免写 0 覆盖
+  useEffect(() => {
+    const nodeId = currentNode?.id
+    if (!nodeId) return
+
+    // 同一节点的重复渲染/回调期间，禁止写入 0 覆盖（主要防首屏恢复竞态）
+    if (restoringNodeIdRef.current === nodeId) return
+
+    const saved = savedProgressRef.current
+    if (
+      !hadNodeParamOnEntryRef.current &&
+      saved &&
+      saved.nodeId === nodeId &&
+      saved.scrollRatio > 0 &&
+      restoringNodeIdRef.current !== nodeId
+    ) {
+      restoringRef.current = true
+      restoringNodeIdRef.current = nodeId
+      setInitialScrollRatio(saved.scrollRatio)
+      return
+    }
+
+    restoringRef.current = false
+    restoringNodeIdRef.current = null
+    setInitialScrollRatio(undefined)
+
+    // 记录当前节点（默认顶端），用于“切到新节点后未滚动就退出”的场景
+    saveReadingProgress(nodeId, 0, { immediate: true })
+  }, [currentNode?.id, saveReadingProgress])
+
+  const handleRestoreDone = useCallback(() => {
+    const nodeId = currentNode?.id
+    if (!nodeId) return
+
+    const saved = savedProgressRef.current
+    if (saved && saved.nodeId === nodeId && saved.scrollRatio > 0) {
+      saveReadingProgress(nodeId, saved.scrollRatio, { immediate: true })
+    }
+    restoringRef.current = false
+  }, [currentNode?.id, saveReadingProgress])
+
+  const handleScrollProgress = useCallback(
+    (ratio: number) => {
+      const nodeId = currentNode?.id
+      if (!nodeId) return
+      if (restoringRef.current) return
+      saveReadingProgress(nodeId, ratio)
+    },
+    [currentNode?.id, saveReadingProgress]
+  )
 
   // 计算地图场景
   const mapScene = useMapScene(currentNode, places, nextNode)
@@ -355,6 +423,9 @@ export function ReaderLayout() {
             highlightedPlaceId={highlightedPlaceId}
             onPlaceClick={handlePlaceClick}
             onPlaceHover={handlePlaceHover}
+            onScrollProgress={handleScrollProgress}
+            initialScrollRatio={initialScrollRatio}
+            onRestoreDone={handleRestoreDone}
           />
         </div>
 

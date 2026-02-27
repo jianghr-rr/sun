@@ -6,7 +6,7 @@
  * 地名标签可点击，触发地图聚焦
  */
 
-import { useMemo, useRef, useState, useCallback } from 'react'
+import { useMemo, useRef, useState, useCallback, useEffect } from 'react'
 import type { Node, Place } from '../types/narrative'
 import { MdxRenderer } from './MdxRenderer'
 
@@ -28,6 +28,12 @@ interface ContentReaderProps {
   highlightedPlaceId?: string | null
   onPlaceClick?: (placeId: string) => void
   onPlaceHover?: (placeId: string | null) => void
+  /** 正文滚动进度 0~1 */
+  onScrollProgress?: (ratio: number) => void
+  /** 恢复阅读位置用的滚动比例 0~1 */
+  initialScrollRatio?: number
+  /** 当恢复流程完成后回调（用于上层解除“恢复阶段禁写”） */
+  onRestoreDone?: () => void
 }
 
 export function ContentReader({
@@ -42,9 +48,13 @@ export function ContentReader({
   highlightedPlaceId,
   onPlaceClick,
   onPlaceHover,
+  onScrollProgress,
+  initialScrollRatio,
+  onRestoreDone,
 }: ContentReaderProps) {
   // 阅读进度
   const scrollRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const [readProgress, setReadProgress] = useState(0)
 
   const handleScroll = useCallback(() => {
@@ -52,8 +62,73 @@ export function ContentReader({
     if (!el) return
     const { scrollTop, scrollHeight, clientHeight } = el
     const max = scrollHeight - clientHeight
-    setReadProgress(max > 0 ? Math.min(scrollTop / max, 1) : 0)
-  }, [])
+    const ratio = max > 0 ? Math.min(scrollTop / max, 1) : 0
+    setReadProgress(ratio)
+    onScrollProgress?.(ratio)
+  }, [onScrollProgress])
+
+  // 节点切换时，默认滚动到顶部（除非有恢复比例）
+  useEffect(() => {
+    if (!node?.id) return
+    if (initialScrollRatio != null && initialScrollRatio > 0) return
+    const el = scrollRef.current
+    if (!el) return
+    el.scrollTop = 0
+    setReadProgress(0)
+  }, [node?.id, initialScrollRatio])
+
+  // 恢复阅读位置（双 raf + 一次性 ResizeObserver 补偿）
+  useEffect(() => {
+    if (!node?.id) return
+    if (initialScrollRatio == null || initialScrollRatio <= 0) return
+    const el = scrollRef.current
+    if (!el) return
+
+    let cancelled = false
+    let ro: ResizeObserver | null = null
+    let timeoutId: number | null = null
+    let raf2: number | null = null
+
+    const restore = () => {
+      if (cancelled) return
+      const max = el.scrollHeight - el.clientHeight
+      if (max > 0) {
+        el.scrollTop = max * Math.min(Math.max(initialScrollRatio, 0), 1)
+      }
+      handleScroll()
+    }
+
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        restore()
+        onRestoreDone?.()
+
+        if (typeof ResizeObserver !== 'undefined') {
+          ro = new ResizeObserver(() => {
+            restore()
+            ro?.disconnect()
+            ro = null
+          })
+          const target = contentRef.current ?? el
+          ro.observe(target)
+
+          timeoutId = window.setTimeout(() => {
+            ro?.disconnect()
+            ro = null
+          }, 1500)
+        }
+      })
+    })
+
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(raf1)
+      if (raf2 != null) cancelAnimationFrame(raf2)
+      if (timeoutId != null) window.clearTimeout(timeoutId)
+      ro?.disconnect()
+      ro = null
+    }
+  }, [node?.id, initialScrollRatio, handleScroll, onRestoreDone])
 
   // 获取节点关联的地点信息
   const placeTags = useMemo<PlaceTag[]>(() => {
@@ -170,7 +245,7 @@ export function ContentReader({
         onScroll={handleScroll}
         className="flex-1 min-h-0 overflow-y-auto px-6 lg:px-12 py-5 lg:py-10"
       >
-        <div className="max-w-prose mx-auto mdx-content">
+        <div ref={contentRef} className="max-w-prose mx-auto mdx-content">
           <MdxRenderer
             Content={node.content.Component}
             highlightedPlaceId={highlightedPlaceId}

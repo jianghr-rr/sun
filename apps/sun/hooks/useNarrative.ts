@@ -15,6 +15,7 @@ import {
   loadPlaces,
   getFirstNodeId,
 } from '../lib/narrative'
+import { useReadingProgress } from './useReadingProgress'
 
 export interface NarrativeState {
   // 作品结构
@@ -63,6 +64,10 @@ export function useNarrative(): NarrativeState & NarrativeActions {
   // 从 URL 获取当前节点 ID
   const nodeIdFromUrl = searchParams.get('node')
 
+  const { load: loadReadingProgress, clear: clearReadingProgress } = useReadingProgress(
+    work?.id
+  )
+
   // 更新 URL 参数
   const updateUrl = useCallback(
     (nodeId: string) => {
@@ -110,24 +115,35 @@ export function useNarrative(): NarrativeState & NarrativeActions {
     init()
   }, [])
 
-  // 如果 URL 中没有节点 ID 且 work 已加载，加载第一个节点
+  // 如果 URL 中没有节点 ID 且 work 已加载：优先恢复本地阅读节点，否则加载第一个节点
   useEffect(() => {
     if (nodeIdFromUrl || !work) return
 
-    async function loadFirstNode() {
+    async function loadInitialNode() {
       try {
+        const saved = loadReadingProgress()
+        if (saved?.nodeId) {
+          const node = await getNodeById(saved.nodeId)
+          if (node) {
+            console.log('[useNarrative] 恢复本地阅读节点:', saved.nodeId)
+            updateUrl(saved.nodeId)
+            return
+          }
+          clearReadingProgress()
+        }
+
         const firstNodeId = await getFirstNodeId()
         if (firstNodeId) {
           console.log('[useNarrative] 自动选择第一个节点:', firstNodeId)
           updateUrl(firstNodeId)
         }
       } catch (err) {
-        console.error('[useNarrative] 加载第一个节点失败:', err)
+        console.error('[useNarrative] 初始化节点失败:', err)
       }
     }
 
-    loadFirstNode()
-  }, [nodeIdFromUrl, work, updateUrl])
+    loadInitialNode()
+  }, [nodeIdFromUrl, work, updateUrl, loadReadingProgress, clearReadingProgress])
 
   // 当 URL 中的节点 ID 变化时，加载对应节点
   useEffect(() => {

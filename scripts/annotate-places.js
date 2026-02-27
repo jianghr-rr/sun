@@ -165,7 +165,7 @@ const PLACE_DEFS = {
   // --- 秋收起义 / 湘赣边 ---
   'tonggu': { name: '铜鼓', aliases: ['铜鼓县'], coord: { lng: 114.3713, lat: 28.5228 }, level: 'county' },
   'xiushui': { name: '修水', aliases: ['修水县'], coord: { lng: 114.5465, lat: 29.0254 }, level: 'county' },
-  'wenjiaши': { name: '文家市', aliases: [], coord: { lng: 113.6800, lat: 28.1800 }, level: 'poi', notes: '秋收起义文家市会师' },
+  'wenjiashi': { name: '文家市', aliases: [], coord: { lng: 113.6800, lat: 28.1800 }, level: 'poi', notes: '秋收起义文家市会师' },
   'sanwan': { name: '三湾', aliases: ['三湾村'], coord: { lng: 114.2570, lat: 26.9890 }, level: 'poi', notes: '三湾改编旧址' },
   'gutian-huiyi': { name: '古田会议', aliases: [], coord: { lng: 116.6070, lat: 25.2300 }, level: 'poi' },
 
@@ -266,7 +266,7 @@ Object.assign(NAME_TO_ID, {
   '茅坪': 'maoping',
   '三湾': 'sanwan',
   '三湾改编': 'sanwan',
-  '文家市': 'wenjiaши',
+  '文家市': 'wenjiashi',
   '大柏地': 'dabaidi',
   '东固': 'donggu',
   '富田': 'futian',

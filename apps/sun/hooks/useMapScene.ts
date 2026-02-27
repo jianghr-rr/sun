@@ -6,7 +6,7 @@
  */
 
 import { useMemo } from 'react'
-import type { Node, Place, CameraConfig, FeatureRef } from '../types/narrative'
+import type { NodeSummary, Place } from '../types/narrative'
 
 /** 地点标记配置 */
 export interface PlaceMarker {
@@ -62,9 +62,9 @@ export interface MapScene {
  * 根据当前节点和地点库计算地图场景
  */
 export function useMapScene(
-  currentNode: Node | null,
+  currentNode: NodeSummary | null,
   places: Place[],
-  nextNode?: Node | null
+  nextNode?: NodeSummary | null
 ): MapScene | null {
   return useMemo(() => {
     if (!currentNode) return null
@@ -188,24 +188,24 @@ export function useMapScene(
   }, [currentNode, nextNode, places])
 }
 
-function isCrossChapterTransition(currentNode: Node, nextNode: Node): boolean {
+function isCrossChapterTransition(currentNode: NodeSummary, nextNode: NodeSummary): boolean {
   return (
     currentNode.chapter !== nextNode.chapter ||
     currentNode.volume !== nextNode.volume
   )
 }
 
-function getNodeStartPlaceId(node: Node): string | null {
+function getNodeStartPlaceId(node: NodeSummary): string | null {
   if (node.map.startPlaceId) return node.map.startPlaceId
   return getPrimaryPlaceId(node)
 }
 
-function getNodeEndPlaceId(node: Node): string | null {
+function getNodeEndPlaceId(node: NodeSummary): string | null {
   if (node.map.endPlaceId) return node.map.endPlaceId
   return getPrimaryPlaceId(node)
 }
 
-function getPrimaryPlaceId(node: Node): string | null {
+function getPrimaryPlaceId(node: NodeSummary): string | null {
   const primary = node.map.features.find(
     (feature) => feature.type === 'place' && feature.role === 'primary'
   )

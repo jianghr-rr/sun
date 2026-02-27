@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import type { Work, Volume, ChapterMeta, Node } from '../types/narrative'
+import type { Work, Volume, ChapterMeta, NodeSummary } from '../types/narrative'
 import { loadChapterNodes } from '../lib/narrative'
 
 interface TableOfContentsProps {
@@ -27,7 +27,7 @@ export function TableOfContents({
   const [expandedChapters, setExpandedChapters] = useState<Set<string>>(new Set())
   // 章节节点缓存
   const [chapterNodesCache, setChapterNodesCache] = useState<
-    Map<string, Node[]>
+    Map<string, NodeSummary[]>
   >(new Map())
 
   // 当前节点变化时，自动展开对应的卷和章
@@ -148,7 +148,7 @@ interface VolumeItemProps {
   volume: Volume
   isExpanded: boolean
   expandedChapters: Set<string>
-  chapterNodesCache: Map<string, Node[]>
+  chapterNodesCache: Map<string, NodeSummary[]>
   currentNodeId: string | null
   onToggleVolume: () => void
   onToggleChapter: (chapterId: string, chapterNumber: number) => void
@@ -208,7 +208,7 @@ interface ChapterItemProps {
   chapter: ChapterMeta
   volumeNumber: number
   isExpanded: boolean
-  nodes: Node[]
+  nodes: NodeSummary[]
   currentNodeId: string | null
   onToggle: () => void
   onSelectNode: (nodeId: string) => void
@@ -261,7 +261,7 @@ function ChapterItem({
 
 // 节点组件
 interface NodeItemProps {
-  node: Node
+  node: NodeSummary
   isActive: boolean
   onSelect: () => void
 }

@@ -54,8 +54,8 @@ export interface Chapter extends ChapterMeta {
 // 叙事节点（核心）
 // ============================================
 
-/** 叙事节点 - 最小联动单元 */
-export interface Node {
+/** 叙事节点通用字段 */
+export interface NodeBase {
   id: string
   workId: string
   volume: number
@@ -66,8 +66,6 @@ export interface Node {
   order?: number
   /** 时间范围（可选） */
   time?: TimeRange
-  /** 正文内容引用 */
-  content: MdxContent
   /** 地图配置 */
   map: MapConfig
   /** 场景过渡配置 */
@@ -77,6 +75,18 @@ export interface Node {
   /** 引用来源 */
   sources?: Source[]
 }
+
+/** 目录/索引节点（不含正文组件） */
+export interface NodeSummary extends NodeBase {}
+
+/** 完整节点（含正文组件） */
+export interface NodeFull extends NodeBase {
+  /** 正文内容引用 */
+  content: MdxContent
+}
+
+/** 向后兼容：Node 默认指完整节点 */
+export type Node = NodeFull
 
 /** 时间范围 */
 export interface TimeRange {

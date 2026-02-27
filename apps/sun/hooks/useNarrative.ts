@@ -7,10 +7,12 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import type { Work, Node, Place } from '../types/narrative'
+import type { Work, Node, NodeSummary, Place } from '../types/narrative'
 import {
   getWorkStructure,
   getNodeById,
+  getNodeSummaryById,
+  prefetchNodeById,
   loadChapterNodes,
   loadPlaces,
   getFirstNodeId,
@@ -23,9 +25,9 @@ export interface NarrativeState {
   // 当前节点
   currentNode: Node | null
   // 下一节点（用于跨章节路径）
-  nextNode: Node | null
+  nextNode: NodeSummary | null
   // 当前章节的所有节点
-  chapterNodes: Node[]
+  chapterNodes: NodeSummary[]
   // 地点库
   places: Place[]
   // 加载状态
@@ -52,8 +54,8 @@ export function useNarrative(): NarrativeState & NarrativeActions {
   // 状态
   const [work, setWork] = useState<Work | null>(null)
   const [currentNode, setCurrentNode] = useState<Node | null>(null)
-  const [nextNode, setNextNode] = useState<Node | null>(null)
-  const [chapterNodes, setChapterNodes] = useState<Node[]>([])
+  const [nextNode, setNextNode] = useState<NodeSummary | null>(null)
+  const [chapterNodes, setChapterNodes] = useState<NodeSummary[]>([])
   const [places, setPlaces] = useState<Place[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -123,7 +125,7 @@ export function useNarrative(): NarrativeState & NarrativeActions {
       try {
         const saved = loadReadingProgress()
         if (saved?.nodeId) {
-          const node = await getNodeById(saved.nodeId)
+          const node = await getNodeSummaryById(saved.nodeId)
           if (node) {
             console.log('[useNarrative] 恢复本地阅读节点:', saved.nodeId)
             updateUrl(saved.nodeId)
@@ -169,7 +171,7 @@ export function useNarrative(): NarrativeState & NarrativeActions {
         setCurrentNode(node)
 
         if (node.links?.next) {
-          const next = await getNodeById(node.links.next)
+          const next = await getNodeSummaryById(node.links.next)
           setNextNode(next || null)
         } else {
           setNextNode(null)
@@ -188,6 +190,46 @@ export function useNarrative(): NarrativeState & NarrativeActions {
 
     loadNode()
   }, [nodeIdFromUrl])
+
+  // 当前节点加载后，空闲预取相邻节点，提升连续阅读流畅度
+  useEffect(() => {
+    if (!currentNode?.id) return
+
+    let cancelled = false
+
+    const prefetchAdjacent = async () => {
+      const candidates = [currentNode.links?.next, currentNode.links?.prev].filter(
+        (id): id is string => !!id
+      )
+      for (const nodeId of candidates) {
+        if (cancelled) return
+        try {
+          await prefetchNodeById(nodeId)
+        } catch {
+          // 预取失败不影响主流程
+        }
+      }
+    }
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      const idleId = window.requestIdleCallback(() => {
+        void prefetchAdjacent()
+      })
+      return () => {
+        cancelled = true
+        window.cancelIdleCallback(idleId)
+      }
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      void prefetchAdjacent()
+    }, 300)
+
+    return () => {
+      cancelled = true
+      window.clearTimeout(timeoutId)
+    }
+  }, [currentNode?.id, currentNode?.links?.next, currentNode?.links?.prev])
 
   // 选择节点
   const selectNode = useCallback(

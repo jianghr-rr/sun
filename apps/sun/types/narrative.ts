@@ -65,7 +65,7 @@ export interface NodeBase {
   /** 节点顺序（章节内） */
   order?: number
   /** 时间范围（可选） */
-  time?: TimeRange
+  time?: TimeRange | null
   /** 地图配置 */
   map?: MapConfig
   /** 场景过渡配置 */

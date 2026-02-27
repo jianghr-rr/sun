@@ -196,16 +196,17 @@ function isCrossChapterTransition(currentNode: NodeSummary, nextNode: NodeSummar
 }
 
 function getNodeStartPlaceId(node: NodeSummary): string | null {
-  if (node.map.startPlaceId) return node.map.startPlaceId
+  if (node.map?.startPlaceId) return node.map.startPlaceId
   return getPrimaryPlaceId(node)
 }
 
 function getNodeEndPlaceId(node: NodeSummary): string | null {
-  if (node.map.endPlaceId) return node.map.endPlaceId
+  if (node.map?.endPlaceId) return node.map.endPlaceId
   return getPrimaryPlaceId(node)
 }
 
 function getPrimaryPlaceId(node: NodeSummary): string | null {
+  if (!node.map?.features) return null
   const primary = node.map.features.find(
     (feature) => feature.type === 'place' && feature.role === 'primary'
   )

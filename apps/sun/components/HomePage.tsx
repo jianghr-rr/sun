@@ -3,7 +3,7 @@
 import { Box, Container, Flex, Heading, HStack, Text } from '@chakra-ui/react'
 
 import { DynamicMapViewer } from './DynamicMapViewer'
-import { ThemeToggle } from './ThemeToggle'
+import { AppearanceToggle } from './AppearanceToggle'
 
 export function HomePage() {
   return (
@@ -35,7 +35,7 @@ export function HomePage() {
             </HStack>
 
             <HStack gap={4}>
-              <ThemeToggle />
+              <AppearanceToggle />
             </HStack>
           </Flex>
         </Container>

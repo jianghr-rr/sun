@@ -12,7 +12,7 @@ import { useSearchParams } from 'next/navigation'
 import { TableOfContents } from './TableOfContents'
 import { ContentReader } from './ContentReader'
 import { DynamicMapViewer } from './DynamicMapViewer'
-import { ThemeToggle } from './ThemeToggle'
+import { AppearanceToggle } from './AppearanceToggle'
 import { useNarrative } from '../hooks/useNarrative'
 import { useMapScene } from '../hooks/useMapScene'
 import { useRoute, type RouteRequest } from '../hooks/useRoute'
@@ -272,7 +272,7 @@ export function ReaderLayout() {
         >
           <MenuIcon />
         </button>
-        <ThemeToggle />
+        <AppearanceToggle />
       </div>
 
       {/* 移动端：目录抽屉遮罩 */}
@@ -337,11 +337,13 @@ export function ReaderLayout() {
               icon-button shadow-card
               transition-all duration-300
               hidden lg:flex
-              ${isDesktopCollapsed 
-                ? 'top-4 right-4' 
-                : 'top-4 right-[calc(min(100%-2rem,42rem)+1.5rem)]'
-              }
+              top-4
             `}
+            style={{
+              right: isDesktopCollapsed
+                ? '1rem'
+                : 'calc(min(100% - 2rem, var(--reading-max-w, 42rem)) + 1.5rem)',
+            }}
             aria-label={isDesktopCollapsed ? '展开文案' : '收起文案'}
             title={isDesktopCollapsed ? '展开文案' : '收起文案'}
           >
@@ -373,7 +375,7 @@ export function ReaderLayout() {
             fixed left-0 right-0 bottom-0
 
             lg:absolute lg:top-4 lg:right-4 lg:bottom-4 lg:left-auto
-            lg:w-[calc(100%-2rem)] lg:max-w-2xl
+            lg:w-[calc(100%-2rem)]
             lg:h-auto lg:rounded-2xl
 
             ${isDragging ? 'is-dragging' : ''}

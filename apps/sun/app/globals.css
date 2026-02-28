@@ -8,10 +8,9 @@
 /* =============================================
    主题色板 — 冷灰学术 (neutral) 为默认
    ============================================= */
-@theme inline {
-  --spacing: 0.25rem;
-
-  /* 冷灰学术色板 */
+/* 颜色/阴影使用 @theme（非 inline），通过 var() 引用，支持 data-theme 运行时切换 */
+@theme {
+  /* 冷灰学术色板（默认） */
   --color-paper-50: #ededf4;
   --color-paper-100: #dddde8;
   --color-paper-200: #c8c8d6;
@@ -41,13 +40,6 @@
   --color-cinnabar-500: #ef4444;
   --color-cinnabar-600: #dc2626;
 
-  /* 字体（next/font 注入 --font-serif / --font-sans，此处作回退链） */
-  --font-family-serif: var(--font-serif), 'Source Han Serif SC', STSong, SimSun, serif;
-  --font-family-sans: var(--font-sans), 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-
-  /* 行高 */
-  --line-height-reading: 2;
-
   /* 阴影 */
   --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.3), 0 2px 8px -2px rgba(0, 0, 0, 0.2);
   --shadow-soft: 0 2px 12px -2px rgba(0, 0, 0, 0.15);
@@ -59,6 +51,18 @@
   --color-marker-route-start: #22c55e;
   --color-marker-route-end: #f97316;
   --color-marker-route-line: #00ffff;
+}
+
+/* 静态值使用 @theme inline，直接内联无需运行时切换 */
+@theme inline {
+  --spacing: 0.25rem;
+
+  /* 字体回退链（next/font 注入 --font-noto-serif / --font-noto-sans / --font-lxgw-wenkai） */
+  --font-family-serif: var(--font-noto-serif), 'Source Han Serif SC', STSong, SimSun, serif;
+  --font-family-sans: var(--font-noto-sans), 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+
+  /* 行高 */
+  --line-height-reading: 2;
 
   /* z-index 层级 */
   --z-map: 0;
@@ -137,6 +141,178 @@
   --fallback-icon-btn: rgba(26, 58, 43, 0.95);
 }
 
+/* =============================================
+   暖白书页主题（亮色）
+   ============================================= */
+[data-theme="warm"] {
+  --color-paper-50: #2c2418;
+  --color-paper-100: #3d3224;
+  --color-paper-200: #52442f;
+  --color-paper-300: #6b5a42;
+  --color-paper-400: #8a7860;
+  --color-paper-500: #a89880;
+  --color-paper-600: #c4b8a4;
+  --color-paper-700: #ddd4c4;
+  --color-paper-800: #ede6da;
+  --color-paper-900: #f5f0e6;
+  --color-paper-950: #faf7f0;
+
+  --color-accent-50: #312513;
+  --color-accent-100: #5c3d14;
+  --color-accent-200: #7a5120;
+  --color-accent-300: #9a6830;
+  --color-accent-400: #b47d3a;
+  --color-accent-500: #c4883e;
+  --color-accent-600: #d49a50;
+  --color-accent-700: #e0ad6a;
+  --color-accent-800: #ebc48e;
+  --color-accent-900: #f3dbb5;
+
+  --color-cinnabar-400: #c0392b;
+  --color-cinnabar-500: #e74c3c;
+  --color-cinnabar-600: #f06e60;
+
+  --gradient-card-from: rgba(245, 240, 230, 0.82);
+  --gradient-card-to: rgba(237, 230, 218, 0.88);
+  --gradient-sheet-from: rgba(250, 247, 240, 0.85);
+  --gradient-sheet-to: rgba(245, 240, 230, 0.9);
+  --gradient-sidebar-from: rgba(245, 240, 230, 0.95);
+  --gradient-sidebar-to: rgba(237, 230, 218, 0.97);
+  --focus-ring: rgba(196, 136, 62, 0.5);
+  --selection-bg: rgba(196, 136, 62, 0.2);
+  --selection-fg: #3d3224;
+  --scrollbar-thumb: #c4b8a4;
+  --scrollbar-thumb-hover: #a89880;
+  --fallback-card: rgba(245, 240, 230, 0.98);
+  --fallback-sheet: rgba(250, 247, 240, 0.98);
+  --fallback-sidebar: rgba(245, 240, 230, 0.99);
+  --fallback-icon-btn: rgba(237, 230, 218, 0.95);
+
+  --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.05);
+  --shadow-soft: 0 2px 12px -2px rgba(0, 0, 0, 0.06);
+}
+
+/* =============================================
+   天青素雅主题（亮色）
+   ============================================= */
+[data-theme="blue"] {
+  --color-paper-50: #1a2332;
+  --color-paper-100: #263040;
+  --color-paper-200: #3a4a5e;
+  --color-paper-300: #546478;
+  --color-paper-400: #748494;
+  --color-paper-500: #95a3b0;
+  --color-paper-600: #b5bfc9;
+  --color-paper-700: #d0d7de;
+  --color-paper-800: #e4e9ee;
+  --color-paper-900: #eef2f6;
+  --color-paper-950: #f5f8fa;
+
+  --color-accent-50: #172038;
+  --color-accent-100: #1e3a5f;
+  --color-accent-200: #265085;
+  --color-accent-300: #2e6aad;
+  --color-accent-400: #3580ca;
+  --color-accent-500: #4393d8;
+  --color-accent-600: #5ba5e0;
+  --color-accent-700: #7bbbe8;
+  --color-accent-800: #a3d0f0;
+  --color-accent-900: #cce4f7;
+
+  --color-cinnabar-400: #c0392b;
+  --color-cinnabar-500: #e74c3c;
+  --color-cinnabar-600: #f06e60;
+
+  --gradient-card-from: rgba(238, 242, 246, 0.82);
+  --gradient-card-to: rgba(228, 233, 238, 0.88);
+  --gradient-sheet-from: rgba(245, 248, 250, 0.85);
+  --gradient-sheet-to: rgba(238, 242, 246, 0.9);
+  --gradient-sidebar-from: rgba(238, 242, 246, 0.95);
+  --gradient-sidebar-to: rgba(228, 233, 238, 0.97);
+  --focus-ring: rgba(67, 147, 216, 0.45);
+  --selection-bg: rgba(67, 147, 216, 0.18);
+  --selection-fg: #263040;
+  --scrollbar-thumb: #b5bfc9;
+  --scrollbar-thumb-hover: #95a3b0;
+  --fallback-card: rgba(238, 242, 246, 0.98);
+  --fallback-sheet: rgba(245, 248, 250, 0.98);
+  --fallback-sidebar: rgba(238, 242, 246, 0.99);
+  --fallback-icon-btn: rgba(228, 233, 238, 0.95);
+
+  --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.07), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  --shadow-soft: 0 2px 12px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* =============================================
+   字体切换 — data-font 属性
+   ============================================= */
+:root,
+[data-font="noto-serif"] {
+  --reading-font: var(--font-noto-serif), 'Source Han Serif SC', STSong, serif;
+}
+
+[data-font="lxgw-wenkai"] {
+  --reading-font: 'LXGW WenKai', 'Kaiti SC', STKaiti, serif;
+}
+
+[data-font="noto-sans"] {
+  --reading-font: var(--font-noto-sans), 'Source Han Sans SC', 'PingFang SC', sans-serif;
+}
+
+/* 字体预览用的工具类 */
+.font-preview-noto-serif { font-family: var(--font-noto-serif), 'Source Han Serif SC', serif; }
+.font-preview-lxgw-wenkai { font-family: 'LXGW WenKai', 'Kaiti SC', serif; }
+.font-preview-noto-sans { font-family: var(--font-noto-sans), 'Source Han Sans SC', sans-serif; }
+
+/* =============================================
+   字号切换 — data-font-size 属性
+   ============================================= */
+:root,
+[data-font-size="md"] {
+  --reading-size: 1.125rem;
+  --reading-lh: 2.0;
+}
+
+[data-font-size="xs"] {
+  --reading-size: 0.9375rem;
+  --reading-lh: 1.9;
+}
+
+[data-font-size="sm"] {
+  --reading-size: 1rem;
+  --reading-lh: 1.95;
+}
+
+[data-font-size="lg"] {
+  --reading-size: 1.25rem;
+  --reading-lh: 2.1;
+}
+
+[data-font-size="xl"] {
+  --reading-size: 1.375rem;
+  --reading-lh: 2.2;
+}
+
+/* =============================================
+   阅读宽度切换 — data-reading-width 属性
+   ============================================= */
+:root,
+[data-reading-width="standard"] {
+  --reading-max-w: 42rem;
+}
+
+[data-reading-width="narrow"] {
+  --reading-max-w: 36rem;
+}
+
+[data-reading-width="wide"] {
+  --reading-max-w: 56rem;
+}
+
+[data-reading-width="extrawide"] {
+  --reading-max-w: 72rem;
+}
+
 /* Cesium 地图样式 */
 .cesium-viewer {
   position: absolute !important;
@@ -165,7 +341,7 @@
 
   body {
     @apply bg-paper-950 text-paper-200 antialiased;
-    font-family: var(--font-family-serif);
+    font-family: var(--reading-font, var(--font-family-serif));
   }
 
   :where(button, [type='button'], [type='reset'], [type='submit']) {
@@ -243,13 +419,28 @@
 /* ===== 组件样式 ===== */
 @layer components {
   .mdx-content {
-    font-family: var(--font-family-serif);
+    font-family: var(--reading-font, var(--font-family-serif));
   }
 
   .reader-card {
     @apply backdrop-blur-xl rounded-2xl;
     background: linear-gradient(to bottom, var(--gradient-card-from), var(--gradient-card-to));
     box-shadow: var(--shadow-card);
+  }
+
+  @media (min-width: 1024px) {
+    .reader-card.reader-card-sheet {
+      max-width: var(--reading-max-w, 42rem);
+    }
+  }
+
+  .reading-content-width {
+    max-width: 65ch;
+  }
+
+  [data-reading-width="wide"] .reading-content-width,
+  [data-reading-width="extrawide"] .reading-content-width {
+    max-width: none;
   }
 
   @media (max-width: 1023px) {
@@ -295,8 +486,8 @@
 
   .reading-paragraph {
     @apply text-paper-200 mb-6;
-    font-size: 1.125rem;
-    line-height: 2.1;
+    font-size: var(--reading-size, 1.125rem);
+    line-height: var(--reading-lh, 2.1);
     letter-spacing: 0.04em;
     text-indent: 2em;
     text-align: justify;
@@ -421,8 +612,8 @@
 
   .mdx-content p {
     @apply text-paper-200 mb-6;
-    font-size: 1.125rem;
-    line-height: 2.1;
+    font-size: var(--reading-size, 1.125rem);
+    line-height: var(--reading-lh, 2.1);
     letter-spacing: 0.04em;
     text-indent: 2em;
     text-align: justify;

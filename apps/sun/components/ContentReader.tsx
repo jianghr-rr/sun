@@ -245,7 +245,7 @@ export function ContentReader({
         onScroll={handleScroll}
         className="flex-1 min-h-0 overflow-y-auto px-6 lg:px-12 py-5 lg:py-10"
       >
-        <div ref={contentRef} className="max-w-prose mx-auto mdx-content">
+        <div ref={contentRef} className="reading-content-width mx-auto mdx-content">
           <MdxRenderer
             Content={node.content.Component}
             highlightedPlaceId={highlightedPlaceId}
@@ -256,7 +256,7 @@ export function ContentReader({
 
         {/* 来源引用 */}
         {node.sources && node.sources.length > 0 && (
-          <div className="source-citation max-w-prose mx-auto">
+          <div className="source-citation reading-content-width mx-auto">
             <p>
               来源：
               {node.sources.map((s, idx) => (
